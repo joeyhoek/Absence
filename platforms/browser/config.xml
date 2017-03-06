@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="nl.innovatewebdesign.absence" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <feature name="Camera">
+        <param name="browser-package" value="Camera" />
+    </feature>
+    <feature name="Device">
+        <param name="browser-package" value="Device" />
+    </feature>
+    <feature name="BarcodeScanner">
+        <param name="browser-package" value="BarcodeScanner" />
+    </feature>
+    <name>Absence</name>
+    <description>
+        Absence is een app voor het absentieregistratiesysteem van Windesheim Flevoland
+    </description>
+    <author email="joey.hoek@windesheimflevoland.nl" href="http://www.windesheimflevoland.nl">
+        Team 10
+    </author>
+    <content src="index.html" />
+    <gap:plugin name="cordova-plugin-uniquedeviceid" source="npm" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarBackgroundColor" value="#464648" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+</widget>

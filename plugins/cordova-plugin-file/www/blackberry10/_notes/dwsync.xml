@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name=".jshintrc" server="C:/xampp/htdocs/" local="131331277116862607" remote="131331277110000000" Dst="1" />
+<file name="copyTo.js" server="C:/xampp/htdocs/" local="131331277116867610" remote="131331277110000000" Dst="1" />
+<file name="createEntryFromNative.js" server="C:/xampp/htdocs/" local="131331277116877621" remote="131331277110000000" Dst="1" />
+<file name="FileProxy.js" server="C:/xampp/htdocs/" local="131331277116882626" remote="131331277110000000" Dst="1" />
+<file name="FileSystem.js" server="C:/xampp/htdocs/" local="131331277116887632" remote="131331277110000000" Dst="1" />
+<file name="getDirectory.js" server="C:/xampp/htdocs/" local="131331277116902646" remote="131331277110000000" Dst="1" />
+<file name="getFile.js" server="C:/xampp/htdocs/" local="131331277116952692" remote="131331277110000000" Dst="1" />
+<file name="getFileMetadata.js" server="C:/xampp/htdocs/" local="131331277116962839" remote="131331277110000000" Dst="1" />
+<file name="getMetadata.js" server="C:/xampp/htdocs/" local="131331277116967845" remote="131331277110000000" Dst="1" />
+<file name="getParent.js" server="C:/xampp/htdocs/" local="131331277116972850" remote="131331277110000000" Dst="1" />
+<file name="info.js" server="C:/xampp/htdocs/" local="131331277117022897" remote="131331277110000000" Dst="1" />
+<file name="moveTo.js" server="C:/xampp/htdocs/" local="131331277117027902" remote="131331277110000000" Dst="1" />
+<file name="readAsArrayBuffer.js" server="C:/xampp/htdocs/" local="131331277117032908" remote="131331277110000000" Dst="1" />
+<file name="readAsBinaryString.js" server="C:/xampp/htdocs/" local="131331277117037913" remote="131331277110000000" Dst="1" />
+<file name="readAsDataURL.js" server="C:/xampp/htdocs/" local="131331277117047921" remote="131331277110000000" Dst="1" />
+<file name="readAsText.js" server="C:/xampp/htdocs/" local="131331277117052927" remote="131331277110000000" Dst="1" />
+<file name="readEntries.js" server="C:/xampp/htdocs/" local="131331277117057930" remote="131331277110000000" Dst="1" />
+<file name="remove.js" server="C:/xampp/htdocs/" local="131331277117062935" remote="131331277110000000" Dst="1" />
+<file name="removeRecursively.js" server="C:/xampp/htdocs/" local="131331277117072946" remote="131331277110000000" Dst="1" />
+<file name="requestAllFileSystems.js" server="C:/xampp/htdocs/" local="131331277117077952" remote="131331277110000000" Dst="1" />
+<file name="requestAnimationFrame.js" server="C:/xampp/htdocs/" local="131331277117082954" remote="131331277110000000" Dst="1" />
+<file name="requestFileSystem.js" server="C:/xampp/htdocs/" local="131331277117092965" remote="131331277110000000" Dst="1" />
+<file name="resolveLocalFileSystemURI.js" server="C:/xampp/htdocs/" local="131331277117097968" remote="131331277110000000" Dst="1" />
+<file name="setMetadata.js" server="C:/xampp/htdocs/" local="131331277117102977" remote="131331277110000000" Dst="1" />
+<file name="truncate.js" server="C:/xampp/htdocs/" local="131331277117107979" remote="131331277110000000" Dst="1" />
+<file name="write.js" server="C:/xampp/htdocs/" local="131331277117117990" remote="131331277110000000" Dst="1" />
+</dwsync>

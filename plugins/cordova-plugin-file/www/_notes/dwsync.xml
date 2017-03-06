@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="DirectoryEntry.js" server="C:/xampp/htdocs/" local="131331277117178048" remote="131331277110000000" Dst="1" />
+<file name="DirectoryReader.js" server="C:/xampp/htdocs/" local="131331277117183054" remote="131331277110000000" Dst="1" />
+<file name="Entry.js" server="C:/xampp/htdocs/" local="131331277117273139" remote="131331277110000000" Dst="1" />
+<file name="File.js" server="C:/xampp/htdocs/" local="131331277117283150" remote="131331277110000000" Dst="1" />
+<file name="FileEntry.js" server="C:/xampp/htdocs/" local="131331277117288152" remote="131331277110000000" Dst="1" />
+<file name="FileError.js" server="C:/xampp/htdocs/" local="131331277117293158" remote="131331277110000000" Dst="1" />
+<file name="FileReader.js" server="C:/xampp/htdocs/" local="131331277117408271" remote="131331277110000000" Dst="1" />
+<file name="FileSystem.js" server="C:/xampp/htdocs/" local="131331277117418279" remote="131331277110000000" Dst="1" />
+<file name="fileSystemPaths.js" server="C:/xampp/htdocs/" local="131331277117423281" remote="131331277110000000" Dst="1" />
+<file name="fileSystems-roots.js" server="C:/xampp/htdocs/" local="131331277117473334" remote="131331277110000000" Dst="1" />
+<file name="fileSystems.js" server="C:/xampp/htdocs/" local="131331277117478337" remote="131331277110000000" Dst="1" />
+<file name="FileUploadOptions.js" server="C:/xampp/htdocs/" local="131331277117488348" remote="131331277110000000" Dst="1" />
+<file name="FileUploadResult.js" server="C:/xampp/htdocs/" local="131331277117493350" remote="131331277110000000" Dst="1" />
+<file name="FileWriter.js" server="C:/xampp/htdocs/" local="131331277117718567" remote="131331277110000000" Dst="1" />
+<file name="Flags.js" server="C:/xampp/htdocs/" local="131331277117733581" remote="131331277110000000" Dst="1" />
+<file name="LocalFileSystem.js" server="C:/xampp/htdocs/" local="131331277117753603" remote="131331277110000000" Dst="1" />
+<file name="Metadata.js" server="C:/xampp/htdocs/" local="131331277117758606" remote="131331277110000000" Dst="1" />
+<file name="ProgressEvent.js" server="C:/xampp/htdocs/" local="131331277117773620" remote="131331277110000000" Dst="1" />
+<file name="requestFileSystem.js" server="C:/xampp/htdocs/" local="131331277117778625" remote="131331277110000000" Dst="1" />
+<file name="resolveLocalFileSystemURI.js" server="C:/xampp/htdocs/" local="131331277117793642" remote="131331277110000000" Dst="1" />
+</dwsync>
