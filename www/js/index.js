@@ -50,15 +50,56 @@ var app = {
     }
 };
 
-if(window.localStorage.getItem("loggedIn") === 1) {
-	document.getElementById("content").innerHTML = "<button id=\"startScan\">Remote login</ button>";
-} else {
+function showLoggedIn(response) {
+	document.getElementById("content").innerHTML = "Hallo " + response["firstname"] + " " + response["lastname"] + "<br /><br /><button id=\"startScan\">Remote login</button><br /><br /><button id=\"logout\">Logout</button>";
+	document.getElementById("logout").onclick = function () {	logOut();	};
+	
+	var resultDiv;
+	document.addEventListener("deviceready", init, false);
+
+	function init() {
+		document.querySelector("#startScan").addEventListener("touchend", startScan, false);
+		resultDiv = document.querySelector("#results");
+	}
+	
+	function startScan() {
+		cordova.plugins.barcodeScanner.scan(
+			function (result) {
+				if (result.format !== "" && result.format !== "QR_CODE"){
+					alert("Scanning failed: Scan is not a QR Code");
+				} else if (result.format !== "") {
+					var userid = window.localStorage.getItem("userid");
+					var token = window.localStorage.getItem("token");
+					var httpQRLogin = new XMLHttpRequest();
+					var paramsQRLogin = "userid=" + userid + "&token=" + token + "&clientid=" + result.text;
+					httpQRLogin.open("POST", url, true);
+
+					//Send the proper header information along with the request
+					httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					httpQRLogin.onreadystatechange = function() {
+						if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
+							if(httpQRLogin.responseText === 1) {
+								alert("You'll be logged in a matter of seconds.");
+							}
+						}
+					};
+					httpQRLogin.send(paramsQRLogin);
+				}
+			},
+			function (error) {
+				alert("Scanning failed: " + error);
+			}
+		);
+		
+	}
+}
+
+function showLoginForm() {
 	document.getElementById("content").innerHTML = "<input type=\"text\" id=\"username\" /><br /><input type=\"password\" id=\"password\" /><br /><input type=\"button\" id=\"submit\" value=\"Login\" />";
 	document.getElementById("submit").onclick = function () {
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
 		var http = new XMLHttpRequest();
-		var url = "http://qrcode.innovatewebdesign.nl/api.php";
 		var params = "username=" + username + "&password=" + password;
 		http.open("POST", url, true);
 		//Send the proper header information along with the request
@@ -75,47 +116,68 @@ if(window.localStorage.getItem("loggedIn") === 1) {
 					window.localStorage.setItem("loggedIn", 1);
 					window.localStorage.setItem("userid", response["userid"]);
 					window.localStorage.setItem("token", response["token"]);
-					document.getElementById("content").innerHTML = "Hallo " + response["firstname"] + " " + response["lastname"] + "<button id=\"startScan\">Remote login</ button>";
-					var resultDiv;
-					document.addEventListener("deviceready", init, false);
-
-					function init() {
-						document.querySelector("#startScan").addEventListener("touchend", startScan, false);
-						resultDiv = document.querySelector("#results");
-					}
-					function startScan() {
-						cordova.plugins.barcodeScanner.scan(
-							function (result) {
-								if (result.format !== "" && result.format !== "QR_CODE"){
-									alert("Scanning failed: Scan is not a QR Code");
-								} else if (result.format !== "") {
-									var userid = window.localStorage.getItem("userid");
-									var token = window.localStorage.getItem("token");
-									var httpQRLogin = new XMLHttpRequest();
-									var paramsQRLogin = "userid=" + userid + "&token=" + token + "&clientid=" + result.text;
-									httpQRLogin.open("POST", url, true);
-
-									//Send the proper header information along with the request
-									httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-									httpQRLogin.onreadystatechange = function() {
-										if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
-											if(httpQRLogin.responseText === 1) {
-												alert("You'll be logged in whithin seconds.");
-											}
-										}
-									};
-									httpQRLogin.send(paramsQRLogin);
-								}
-							},
-							function (error) {
-								alert("Scanning failed: " + error);
-							}
-						);
-					}
+					showLoggedIn(response);
+				} else {
+					alert("Wrong password");
 				}
 			}
-		}
+		};
 		http.send(params);
 	}
+}
+
+function logOut() {	
+	var userid = window.localStorage.getItem("userid");
+	var token = window.localStorage.getItem("token");
+	window.localStorage.removeItem("loggedIn");
+	window.localStorage.removeItem("userid");
+	window.localStorage.removeItem("token");
+	var http = new XMLHttpRequest();
+	var params = "userid=" + userid + "&token=" + token + "&action=logout";
+	
+	http.open("POST", url, true);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	http.onreadystatechange = function() {
+		if(http.readyState == 4 && http.status == 200) {
+			http.abort();
+			http = null;
+			
+			showLoginForm();
+		} else {
+			showLoginForm();
+		}
+	};
+	http.send(params);
+}
+
+if (window.localStorage.getItem("loggedIn") == 1) {
+	var userid = window.localStorage.getItem("userid");
+	var token = window.localStorage.getItem("token");
+	var http = new XMLHttpRequest();
+	var params = "userid=" + userid + "&token=" + token;
+	
+	http.open("POST", url, true);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	http.onreadystatechange = function() {
+		if(http.readyState == 4 && http.status == 200) {
+			var textContent = http.responseText;
+			http.abort();
+			http = null;
+			var response = JSON.parse(textContent);
+			
+			if (response !== false) {
+				showLoggedIn(response);
+			} else {
+				showLoginForm();
+			}
+		} else {
+			showLoginForm();
+		}
+	};
+	http.send(params);
+} else {
+	showLoginForm();
 }
 
