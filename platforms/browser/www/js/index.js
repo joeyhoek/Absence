@@ -86,7 +86,7 @@ function showLoggedIn(response) {
 					httpQRLogin.onreadystatechange = function() {
 						if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
 							if(httpQRLogin.responseText == 1) {
-								alert("You'll be logged in a matter of seconds.");
+								alert("You'll be logged in within a matter of seconds.");
 							}
 						}
 					};
