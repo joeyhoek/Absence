@@ -16,8 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+// API URL
 var url = "http://qrcode.innovatewebdesign.nl/api.php";
 
+// Default APP Booting sequence
 var app = {
     // Application Constructor
     initialize: function() {
@@ -50,10 +53,13 @@ var app = {
     }
 };
 
+
+// Shows the pages with restricted access in the division with the id content.
 function showLoggedIn(response) {
 	document.getElementById("content").innerHTML = "Hallo " + response["firstname"] + " " + response["lastname"] + "<br /><br /><button id=\"startScan\">Remote login</button><br /><br /><button id=\"logout\">Logout</button>";
 	document.getElementById("logout").onclick = function () {	logOut();	};
 	
+	// Scan QR functions
 	var resultDiv;
 	document.addEventListener("deviceready", init, false);
 
@@ -65,6 +71,7 @@ function showLoggedIn(response) {
 	function startScan() {
 		cordova.plugins.barcodeScanner.scan(
 			function (result) {
+				// Check the barcode type
 				if (result.format !== "" && result.format !== "QR_CODE"){
 					alert("Scanning failed: Scan is not a QR Code");
 				} else if (result.format !== "") {
@@ -78,7 +85,7 @@ function showLoggedIn(response) {
 					httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 					httpQRLogin.onreadystatechange = function() {
 						if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
-							if(httpQRLogin.responseText === 1) {
+							if(httpQRLogin.responseText == 1) {
 								alert("You'll be logged in a matter of seconds.");
 							}
 						}
@@ -94,6 +101,7 @@ function showLoggedIn(response) {
 	}
 }
 
+// Shows login form
 function showLoginForm() {
 	document.getElementById("content").innerHTML = "<input type=\"text\" id=\"username\" /><br /><input type=\"password\" id=\"password\" /><br /><input type=\"button\" id=\"submit\" value=\"Login\" />";
 	document.getElementById("submit").onclick = function () {
@@ -126,6 +134,7 @@ function showLoginForm() {
 	}
 }
 
+// Logs the user out
 function logOut() {	
 	var userid = window.localStorage.getItem("userid");
 	var token = window.localStorage.getItem("token");
@@ -151,6 +160,7 @@ function logOut() {
 	http.send(params);
 }
 
+// Check login
 if (window.localStorage.getItem("loggedIn") == 1) {
 	var userid = window.localStorage.getItem("userid");
 	var token = window.localStorage.getItem("token");
@@ -167,6 +177,7 @@ if (window.localStorage.getItem("loggedIn") == 1) {
 			http = null;
 			var response = JSON.parse(textContent);
 			
+			// If API gives response
 			if (response !== false) {
 				showLoggedIn(response);
 			} else {
