@@ -20,17 +20,44 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+header {
+	height: 30px;
+	width: 100%;
+	background-color: rgb(70, 70, 72);
+	color: #464648;
+	text-align: center;
+	font-size: 20px;
+	text-transform: none;
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text'*/
+	background-image: url("../img/achtergrond.jpg");
+	background-size:cover;
+	background-position: center;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
+    margin:auto;
     width:100%;
+	overflow-x: hidden;
+}
+
+html{
+	overflow-x: hidden;
+}
+
+.rectangle{
+	position: absolute;
+	z-index: -1;
+	-moz-transform: rotate(-27deg);
+	-ms-transform: rotate(-27deg);
+	-webkit-transform: rotate(-27deg);
+	transform: rotate(-27deg);
+	box-shadow: 0px 0px 131px 0px rgba(0, 0, 0, 0.21);
+
 }
 
 
@@ -85,12 +112,73 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 }
 
-header {
-	height: 60px;
-	width: 100%;
-	background-color: rgb(70, 70, 72);
-	color: #ffffff;
+img{
+	width: 90px;
+    height: auto;
+	display:block;
+	margin:0 auto;
+	margin-top:20%;	
+}
+
+.form {
+	margin:0 auto;
+	width:170px;
+	margin-top:30px;
+}
+
+.form input {
+	width: 170px;
+	height: 30px;
+	margin-bottom: 3px;	
+}
+
+#submit {
+	width: 100px;
+	position: relative;
+	margin-top:5%;
+	background-color:#015679;
+	color:#FFFFFF;
+	border: 1px solid #46454a;
+	margin-left: 23%;
+	margin-bottom: 5%;
+}
+
+.user{
+	color:#46454a;
+	width: 22px;
+	float: right;
+	margin-top: -33px;
+	margin-right: 4px;
+	z-index: 999999;
+	position: relative;
+	
+}
+
+.lock{
+	color:#46454a;
+	width: 26px;
+	float: right;
+	margin-top: -35px;
+	margin-right: 2px;
+	z-index: 999999;
+	position: relative;
+	
+}
+
+a:link{
+	color: #4d4c51;
 	text-align: center;
-	font-size: 20px;
-	text-transform:  none;
+	margin-left: 23%;
+	text-decoration: none;
+}
+
+.footer{
+	position: absolute;
+	padding: 1rem;
+	right: 0;
+  	bottom: 0;
+  	left: 0;
+	width:100%;
+	text-align: center;
+	color:#FFFFFF
 }

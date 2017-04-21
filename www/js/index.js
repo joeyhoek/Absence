@@ -55,9 +55,13 @@ var app = {
 
 
 // Shows the pages with restricted access in the division with the id content.
+
+// Dit krijg je te zien nadat je bent ingelogd
 function showLoggedIn(response) {
 	document.getElementById("content").innerHTML = "Hallo " + response["firstname"] + " " + response["lastname"] + "<br /><br /><button id=\"startScan\">Remote login</button><br /><br /><button id=\"logout\">Logout</button>";
-	document.getElementById("logout").onclick = function () {	logOut();	};
+	
+	//Zorgt ervoor dat de gebruiker kan uitloggen wanneer hij op de knop klikt
+	document.getElementById("logout").onclick = function () {logOut();};
 	
 	// Scan QR functions
 	var resultDiv;
@@ -103,7 +107,7 @@ function showLoggedIn(response) {
 
 // Shows login form
 function showLoginForm() {
-	document.getElementById("content").innerHTML = "<input type=\"text\" id=\"username\" /><br /><input type=\"password\" id=\"password\" /><br /><input type=\"button\" id=\"submit\" value=\"Login\" />";
+	document.getElementById("content").innerHTML = "<div class=\"form\"><input type=\"text\" id=\"username\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" id=\"password\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign in\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
 	document.getElementById("submit").onclick = function () {
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
