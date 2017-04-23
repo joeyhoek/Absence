@@ -30,23 +30,22 @@ header {
 	text-transform: none;
 }
 
+body, html {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text'*/
 	background-image: url("../img/achtergrond.jpg");
-	background-size:cover;
+	background-size: cover;
 	background-position: center;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
     margin:auto;
-    width:100%;
-	overflow-x: hidden;
-}
-
-html{
-	overflow-x: hidden;
 }
 
 .rectangle{
@@ -59,8 +58,6 @@ html{
 	box-shadow: 0px 0px 131px 0px rgba(0, 0, 0, 0.21);
 
 }
-
-
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
@@ -76,42 +73,6 @@ h1 {
     text-align:center;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-}
-
-.event.listening {
-    background-color:#333333;
-    display:block;
-}
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
-}
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
-}
-
 img{
 	width: 90px;
     height: auto;
@@ -122,33 +83,33 @@ img{
 
 .form {
 	margin:0 auto;
-	width:170px;
+	width:230px;
 	margin-top:30px;
+	text-align: center;
 }
 
 .form input {
-	width: 170px;
-	height: 30px;
+	width: 215px;
+	height: 38px;
 	margin-bottom: 3px;	
 }
 
 #submit {
-	width: 100px;
-	position: relative;
-	margin-top:5%;
+	width: 120px;
 	background-color:#015679;
 	color:#FFFFFF;
 	border: 1px solid #46454a;
-	margin-left: 23%;
-	margin-bottom: 5%;
+	margin: 5% auto;
+	height: 37px; 
+	font-size: 16px;
 }
 
 .user{
 	color:#46454a;
-	width: 22px;
+	width: 24px;
 	float: right;
-	margin-top: -33px;
-	margin-right: 4px;
+	margin-top: -37px;
+	margin-right: 22px;
 	z-index: 999999;
 	position: relative;
 	
@@ -156,10 +117,10 @@ img{
 
 .lock{
 	color:#46454a;
-	width: 26px;
+	width: 30px;
 	float: right;
-	margin-top: -35px;
-	margin-right: 2px;
+	margin-top: -42px;
+	margin-right: 19px;
 	z-index: 999999;
 	position: relative;
 	
@@ -181,4 +142,8 @@ a:link{
 	width:100%;
 	text-align: center;
 	color:#FFFFFF
+}
+
+input {
+	outline: 0;
 }

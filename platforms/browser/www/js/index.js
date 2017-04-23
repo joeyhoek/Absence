@@ -107,7 +107,7 @@ function showLoggedIn(response) {
 
 // Shows login form
 function showLoginForm() {
-	document.getElementById("content").innerHTML = "<div class=\"form\"><input type=\"text\" id=\"username\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" id=\"password\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign in\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
+	document.getElementById("content").innerHTML = "<div class=\"form\"><input type=\"text\" id=\"username\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" id=\"password\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
 	document.getElementById("submit").onclick = function () {
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
