@@ -182,5 +182,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-translucent-statusbar": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-translucent-statusbar"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

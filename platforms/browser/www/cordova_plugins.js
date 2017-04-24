@@ -624,6 +624,14 @@ module.exports = [
         "merges": [
             "window.plugins.uniqueDeviceID"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-translucent-statusbar/www/translucentStatusbar.js",
+        "id": "cordova-plugin-translucent-statusbar.translucentStatusbar",
+        "pluginId": "cordova-plugin-translucent-statusbar",
+        "clobbers": [
+            "window.translucentStatusbar"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -651,7 +659,8 @@ module.exports.metadata =
     "cordova-plugin-vibration": "2.1.3",
     "cordova-plugin-whitelist": "1.2.2",
     "phonegap-plugin-barcodescanner": "6.0.5",
-    "cordova-plugin-uniquedeviceid": "1.3.2"
+    "cordova-plugin-uniquedeviceid": "1.3.2",
+    "cordova-plugin-translucent-statusbar": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

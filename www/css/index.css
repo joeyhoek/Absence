@@ -20,19 +20,11 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
-header {
-	height: 30px;
-	width: 100%;
-	background-color: rgb(70, 70, 72);
-	color: #464648;
-	text-align: center;
-	font-size: 20px;
-	text-transform: none;
-}
-
 body, html {
 	max-width: 100%;
-	overflow-x: hidden;
+	/*overflow-x: hidden !important;*/
+	margin: 0;
+	padding: 0;
 }
 
 body {
@@ -45,23 +37,34 @@ body {
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
-    margin:auto;
 }
 
 .rectangle{
-	position: absolute;
 	z-index: -1;
-	-moz-transform: rotate(-27deg);
-	-ms-transform: rotate(-27deg);
-	-webkit-transform: rotate(-27deg);
-	transform: rotate(-27deg);
 	box-shadow: 0px 0px 131px 0px rgba(0, 0, 0, 0.21);
-
+	width: 220%;
+	height: 320px;
+	background-color: #FFFFFF;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-moz-transform: translate(-50%, -50%) rotate(-27deg);
+	-ms-transform: translate(-50%, -50%) rotate(-27deg);
+	-webkit-transform: translate(-50%, -50%) rotate(-27deg);
+	transform: translate(-50%, -50%) rotate(-27deg);
 }
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
 
+}
+
+#content.login {
+	
+}
+
+#content.login .logo {
+	margin-bottom: 25px;
 }
 
 h1 {
@@ -78,28 +81,31 @@ img{
     height: auto;
 	display:block;
 	margin:0 auto;
-	margin-top:20%;	
 }
 
 .form {
-	margin:0 auto;
-	width:230px;
-	margin-top:30px;
+	width: 80%;
+	max-width: 230px;
 	text-align: center;
+	margin: 0 auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .form input {
 	width: 215px;
 	height: 38px;
-	margin-bottom: 3px;	
+	margin-bottom: 5px;	
 }
 
 #submit {
 	width: 120px;
 	background-color:#015679;
 	color:#FFFFFF;
-	border: 1px solid #46454a;
-	margin: 5% auto;
+	border: 0;
+	margin: 10px auto;
 	height: 37px; 
 	font-size: 16px;
 }
@@ -126,11 +132,11 @@ img{
 	
 }
 
-a:link{
+a {
 	color: #4d4c51;
 	text-align: center;
-	margin-left: 23%;
 	text-decoration: none;
+	font-size: 13px;
 }
 
 .footer{
@@ -139,7 +145,7 @@ a:link{
 	right: 0;
   	bottom: 0;
   	left: 0;
-	width:100%;
+	max-width:100%;
 	text-align: center;
 	color:#FFFFFF
 }
