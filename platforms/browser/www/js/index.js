@@ -138,6 +138,12 @@ function showLoginForm() {
 		};
 		http.send(params);
 	}
+	var body = document.body,
+    html = document.documentElement;
+
+	var height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
+	
+	document.getElementsByTagName("body")[0].style.minHeight = height + "px";
 }
 
 // Logs the user out

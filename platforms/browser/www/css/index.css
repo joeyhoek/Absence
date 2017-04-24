@@ -18,13 +18,59 @@
  */
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+	-webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
+	-moz-touch-callout: none;
+	-ms-touch-callout: none;
+	touch-callout: none;
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	-ms-user-drag: none;
+	user-drag: none;
+}
+
+input[type="text"], textearea {
+	-webkit-user-select: auto !important;
+	-khtml-user-select: auto !important;
+	-moz-user-select: auto !important;
+	-ms-user-select: auto !important;
+	user-select: auto !important;
 }
 
 body, html {
 	max-width: 100%;
-	/*overflow-x: hidden !important;*/
+	overflow-x: hidden !important;
 	margin: 0;
 	padding: 0;
+}
+
+@keyframes fadeInBackground {
+	from {
+		opacity: 0;
+	}
+	
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes logInRecIn {
+	from {
+		height: 1px;
+	}
+	
+	to {
+		height: 330px;
+	}
 }
 
 body {
@@ -37,26 +83,26 @@ body {
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
+	animation: fadeInBackground 0.6s ease-in-out 0s;
 }
 
 .rectangle{
 	z-index: -1;
 	box-shadow: 0px 0px 131px 0px rgba(0, 0, 0, 0.21);
-	width: 220%;
-	height: 320px;
+	width: 170%;
 	background-color: #FFFFFF;
 	position: fixed;
+	height: 0px;
 	top: 50%;
 	left: 50%;
-	-moz-transform: translate(-50%, -50%) rotate(-27deg);
-	-ms-transform: translate(-50%, -50%) rotate(-27deg);
-	-webkit-transform: translate(-50%, -50%) rotate(-27deg);
-	transform: translate(-50%, -50%) rotate(-27deg);
-}
-
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-
+	-moz-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
+	-ms-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
+	-webkit-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
+	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
+	-webkit-animation: logInRecIn 0.7s ease-in-out 0.3s;
+	animation: logInRecIn 0.7s ease-in-out 0.3s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
 }
 
 #content.login {
@@ -94,10 +140,17 @@ img{
 	transform: translate(-50%, -50%);
 }
 
-.form input {
-	width: 215px;
+.form input:not(#submit) {
+	width: 135px;
+	max-width: 135px;
+	padding: 0 40px 0 40px;
 	height: 38px;
 	margin-bottom: 5px;	
+}
+
+.form input:focus:not(#submit) {
+	box-shadow: 0 0 5px 0 rgba(0,0,0,0.4);
+	border: 1px solid #464648;
 }
 
 #submit {
@@ -114,22 +167,22 @@ img{
 	color:#46454a;
 	width: 24px;
 	float: right;
-	margin-top: -37px;
-	margin-right: 22px;
+	margin-top: -39px;
+	margin-right: 18px;
 	z-index: 999999;
 	position: relative;
-	
+
 }
 
 .lock{
 	color:#46454a;
 	width: 30px;
 	float: right;
-	margin-top: -42px;
-	margin-right: 19px;
+	margin-top: -43px;
+	margin-right: 15px;
 	z-index: 999999;
 	position: relative;
-	
+
 }
 
 a {
@@ -152,4 +205,8 @@ a {
 
 input {
 	outline: 0;
+}
+
+input[type="text"]:focus ~ .footer {
+	display: none;
 }
