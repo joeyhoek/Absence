@@ -121,6 +121,20 @@ body, html {
 	}
 }
 
+@keyframes recFixInput {
+	0% {
+		opacity: 1;
+		width: 145px;
+		border-left: 20px solid #015679;
+	}
+	
+	100% {
+		opacity: 1;
+		width: 145px;
+		border-left: 20px solid #0ba2dd;
+	}
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -212,6 +226,18 @@ img{
 	color: #464648;
 	font-size: 14px;
 	overflow-x: auto;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s; 
+}
+
+#username.loaded, #password.loaded {
+	animation: none !important;
+	opacity: 1 !important;
+	width: 145px !important;
+	border-left: 20px solid #015679 !important;
+}
+
+#username.error, #password.error {
+	border-left: 20px solid #015679 !important;
 }
 
 .form input:focus:not(#submit) {
@@ -219,7 +245,11 @@ img{
 	border-right: 0.5px solid #b8b7be;
 	border-top: 0.5px solid #b8b7be;
 	border-bottom: 0.5px solid #b8b7be;
-	border-left: 20px solid #015679;
+	animation-play-state: paused;
+	animation: none;
+	opacity: 1;
+	width: 145px;
+	border-left: 20px solid #0ba2dd !important;
 }
 
 #submit {
@@ -275,6 +305,7 @@ img{
 	text-decoration: none;
 	font-size: 13px;
 	transition: color 0.1s ease-in-out;
+	opacity: 0;
 	animation: fadeIn 0.4s ease-in-out 0.95s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
@@ -285,7 +316,7 @@ img{
 }
 
 .footer{
-	position: absolute;
+	position: fixed;
 	right: -100px;
   	bottom: 1em;
 	max-width:100%;
@@ -302,6 +333,6 @@ input {
 	outline: 0;
 }
 
-input[type="text"]:focus ~ .footer {
-	display: none;
+.hide {
+	display: none !important;
 }

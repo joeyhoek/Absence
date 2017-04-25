@@ -17,6 +17,13 @@
  * under the License.
  */
 
+function hideCopyright() {
+	document.getElementsByClassName("footer")[0].classList.add("hide");
+}
+
+function showCopyright() {
+	document.getElementsByClassName("footer")[0].classList.remove("hide");
+}
 
 
 // API URL
@@ -109,7 +116,7 @@ function showLoggedIn(response) {
 
 // Shows login form
 function showLoginForm() {
-	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"text\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
+	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"text\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
 	document.getElementById("submit").onclick = function () {
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
@@ -260,4 +267,9 @@ window.onload = function () {
 	if (event.keyCode == 13) {
          document.getElementById("submit").click();
     }
+	
+	setTimeout(function(){
+		document.getElementById('username').classList.add("loaded");
+		document.getElementById('password').classList.add("loaded");
+	}, 1500);
 };
