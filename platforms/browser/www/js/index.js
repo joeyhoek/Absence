@@ -109,7 +109,7 @@ function showLoggedIn(response) {
 
 // Shows login form
 function showLoginForm() {
-	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><div class=\"form\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"text\" id=\"username\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" id=\"password\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
+	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"text\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
 	document.getElementById("submit").onclick = function () {
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
@@ -193,9 +193,15 @@ if (window.localStorage.getItem("loggedIn") == 1) {
 			if (response !== false) {
 				showLoggedIn(response);
 			} else {
+				window.localStorage.removeItem("loggedIn");
+				window.localStorage.removeItem("userid");
+				window.localStorage.removeItem("token");
 				showLoginForm();
 			}
 		} else {
+			window.localStorage.removeItem("loggedIn");
+			window.localStorage.removeItem("userid");
+			window.localStorage.removeItem("token");
 			showLoginForm();
 		}
 	};
@@ -204,3 +210,54 @@ if (window.localStorage.getItem("loggedIn") == 1) {
 	showLoginForm();
 }
 
+function NoClickDelay(el) {
+	this.element = typeof el == 'object' ? el : document.getElementById(el);
+	if( window.Touch ) this.element.addEventListener('touchstart', this, false);
+}
+
+NoClickDelay.prototype = {
+	handleEvent: function(e) {
+		switch(e.type) {
+			case 'touchstart': this.onTouchStart(e); break;
+			case 'touchmove': this.onTouchMove(e); break;
+			case 'touchend': this.onTouchEnd(e); break;
+		}
+	},
+
+	onTouchStart: function(e) {
+		e.preventDefault();
+		this.moved = false;
+
+		this.theTarget = document.elementFromPoint(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
+		if(this.theTarget.nodeType == 3) this.theTarget = theTarget.parentNode;
+		this.theTarget.className+= ' pressed';
+
+		this.element.addEventListener('touchmove', this, false);
+		this.element.addEventListener('touchend', this, false);
+	},
+
+	onTouchMove: function(e) {
+		this.moved = true;
+		this.theTarget.className = this.theTarget.className.replace(/ ?pressed/gi, '');
+	},
+
+	onTouchEnd: function(e) {
+		this.element.removeEventListener('touchmove', this, false);
+		this.element.removeEventListener('touchend', this, false);
+
+		if( !this.moved && this.theTarget ) {
+			this.theTarget.className = this.theTarget.className.replace(/ ?pressed/gi, '');
+			var theEvent = document.createEvent('MouseEvents');
+			theEvent.initEvent('click', true, true);
+			this.theTarget.dispatchEvent(theEvent);
+		}
+
+		this.theTarget = undefined;
+	}
+};
+
+window.onload = function () {
+	if (event.keyCode == 13) {
+         document.getElementById("submit").click();
+    }
+};
