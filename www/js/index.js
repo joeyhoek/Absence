@@ -18,6 +18,7 @@
  */
 
 function hideCopyright() {
+	document.getElementsByClassName("form")[0].classList.remove("error");
 	document.getElementsByClassName("footer")[0].classList.add("hide");
 }
 
@@ -25,6 +26,26 @@ function showCopyright() {
 	document.getElementsByClassName("footer")[0].classList.remove("hide");
 }
 
+function shake() {
+	document.getElementById('username').classList.add("shake-horizontal");
+	document.getElementById('password').classList.add("shake-horizontal");
+	document.getElementById('username').classList.add("shake-constant");
+	document.getElementById('password').classList.add("shake-constant");
+	document.getElementsByClassName('user')[0].classList.add("shake-horizontal");
+	document.getElementsByClassName('lock')[0].classList.add("shake-horizontal");
+	document.getElementsByClassName('user')[0].classList.add("shake-constant");
+	document.getElementsByClassName('lock')[0].classList.add("shake-constant");
+	window.setTimeout(function () {
+		document.getElementById('username').classList.remove("shake-horizontal");
+		document.getElementById('password').classList.remove("shake-horizontal");
+		document.getElementById('username').classList.remove("shake-constant");
+		document.getElementById('password').classList.remove("shake-constant");
+		document.getElementsByClassName('user')[0].classList.remove("shake-horizontal");
+		document.getElementsByClassName('lock')[0].classList.remove("shake-horizontal");
+		document.getElementsByClassName('user')[0].classList.remove("shake-constant");
+		document.getElementsByClassName('lock')[0].classList.remove("shake-constant");
+	}, 400);
+}
 
 // API URL
 var url = "http://qrcode.innovatewebdesign.nl/api.php";
@@ -116,8 +137,10 @@ function showLoggedIn(response) {
 
 // Shows login form
 function showLoginForm() {
-	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"text\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
+	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
 	document.getElementById("submit").onclick = function () {
+		document.getElementsByClassName("form")[0].classList.remove("error");
+		document.getElementsByClassName("form")[0].classList.add("submitted");
 		var username = document.getElementById("username").value;
 		var password = document.getElementById("password").value;
 		var http = new XMLHttpRequest();
@@ -139,18 +162,17 @@ function showLoginForm() {
 					window.localStorage.setItem("token", response["token"]);
 					showLoggedIn(response);
 				} else {
+					document.getElementsByClassName("form")[0].classList.add("error");
+					shake();
 					alert("Wrong password");
 				}
+			} else {
+				shake();
+				document.getElementsByClassName("form")[0].classList.add("error");
 			}
 		};
 		http.send(params);
 	}
-	var body = document.body,
-    html = document.documentElement;
-
-	var height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
-	
-	document.getElementsByTagName("body")[0].style.minHeight = height + "px";
 }
 
 // Logs the user out
@@ -271,5 +293,7 @@ window.onload = function () {
 	setTimeout(function(){
 		document.getElementById('username').classList.add("loaded");
 		document.getElementById('password').classList.add("loaded");
+		document.getElementsByClassName('user')[0].classList.add("loaded");
+		document.getElementsByClassName('lock')[0].classList.add("loaded");
 	}, 1500);
 };

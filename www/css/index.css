@@ -234,10 +234,40 @@ img{
 	opacity: 1 !important;
 	width: 145px !important;
 	border-left: 20px solid #015679 !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
 }
 
-#username.error, #password.error {
-	border-left: 20px solid #015679 !important;
+.loaded {
+	animation: none !important;
+	opacity: 1 !important;
+}
+
+.submitted #username:invalid, .submitted #password:invalid {
+	border-left: 20px solid #b32704 !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+.form #username.loaded.shake-horizontal.shake-constant:not(#submit), .form #password.loaded.shake-horizontal.shake-constant:not(#submit), .user.shake-horizontal.shake-constant, .lock.shake-horizontal.shake-constant {
+	animation-name: shake-horizontal !important;
+    animation-duration: 2800ms !important;
+    animation-timing-function: ease-in-out !important;
+    animation-iteration-count: infinite !important;
+	animation-delay: 0s !important;
+	opacity: 1 !important;
+}
+
+.user.shake-horizontal.shake-constant, .lock.shake-horizontal.shake-constant {
+	opacity: 1 !important;
+}
+
+#username:valid, #password:valid {
+	border-left: 20px solid #4cb002 !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+.error #username, .error #password {
+	border-left: 20px solid #b32704 !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
 }
 
 .form input:focus:not(#submit) {
@@ -250,6 +280,7 @@ img{
 	opacity: 1;
 	width: 145px;
 	border-left: 20px solid #0ba2dd !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
 }
 
 #submit {
