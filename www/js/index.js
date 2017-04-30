@@ -1,3 +1,7 @@
+// When App starts
+// API URL
+var url = "http://qrcode.innovatewebdesign.nl/api.php";
+
 // Default APP Booting sequence
 var app = {
     // Application Constructor
@@ -141,9 +145,6 @@ function logOut() {
 	http.send(params);
 }
 
-// When App starts
-// API URL
-var url = "http://qrcode.innovatewebdesign.nl/api.php";
 
 // Page Login
 function showLogin() {
