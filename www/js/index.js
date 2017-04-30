@@ -1,14 +1,3 @@
-@Override
-public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    super.init(); // Calling this is necessary to make this work
-    appView.addJavascriptInterface(this, "MainActivity");
-	super.setIntegerProperty("splashscreen", R.drawable.splash);
-    /* "this" points the to the object of the current activity. "MainActivity" is used to refer "this" object in JavaScript as in Step 3. */
-
-    super.loadUrl("file:///android_asset/www/index.html", 5000);
-}
- 
 // Default APP Booting sequence
 var app = {
     // Application Constructor
