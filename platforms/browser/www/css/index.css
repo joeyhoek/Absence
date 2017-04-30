@@ -63,6 +63,16 @@ body, html {
 	}
 }
 
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	
+	to {
+		opacity: 0;
+	}
+}
+
 @keyframes slideIn {
 	from {
 		opacity: 0;
@@ -77,15 +87,47 @@ body, html {
 	}
 }
 
+@keyframes slideOut {
+	from {
+		opacity: 1;
+		left: 0;
+		right: 0;
+	}
+	 
+	to {
+		opacity: 0;
+		left: 100px;
+		right: -100px;
+	}
+}
+
 @keyframes logInRecIn {
 	from {
-		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
-		height: 1px;
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
 	}
 	
 	to {
-		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
-		height: 330px;
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
+	}
+}
+
+@keyframes logInRecSmall {
+	from {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
+	}
+	
+	to {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0.76);
+	}
+}
+
+@keyframes logInRecNotSmall {
+	from {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0.76);
+	}
+	
+	to {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
 	}
 }
 
@@ -118,6 +160,38 @@ body, html {
 		opacity: 1;
 		width: 145px;
 		border-left: 20px solid #015679;
+	}
+}
+
+@keyframes recOutInput {
+	0% {
+		opacity: 1;
+		width: 145px;
+		border-left: 20px solid #015679;
+	}
+	
+	30% {
+		opacity: 1;
+		width: 145px;
+		border-left: 20px solid #015679;
+	}
+	
+	55% {
+		opacity: 1;
+		width: 72.5px;
+		border-left: 10px solid #015679;
+	}
+		
+	80%{
+		opacity: 1;
+		width: 0px;
+		border-left: 0.5px solid #b8b7be;
+	}
+	
+	100% {
+		opacity: 0;
+		width: 0px;
+		border-left: 0.5px solid #b8b7be;
 	}
 }
 
@@ -166,15 +240,29 @@ html {
 	width: 170%;
 	background-color: #FFFFFF;
 	position: fixed;
-	height: 0px;
+	height: 330px;
 	top: 50%;
 	left: 50%;
-	-moz-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
-	-ms-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
-	-webkit-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
-	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0);
+	-moz-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	-ms-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	-webkit-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
 	-webkit-animation: logInRecIn 0.7s ease-in-out 0.3s;
 	animation: logInRecIn 0.7s ease-in-out 0.3s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.rectangle.small {
+	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
+	animation: logInRecSmall 0.7s ease-in-out 0s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.rectangle.notSmall {
+	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0.76);
+	animation: logInRecNotSmall 0.7s ease-in-out 0s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 }
@@ -196,13 +284,20 @@ h1 {
     text-align:center;
 }
 
-img{
+.logo{
 	width: 90px;
     height: auto;
 	display:block;
 	margin: 0 auto;
 	opacity: 0;
 	animation: fadeIn 0.5s ease-in-out 0.8s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.aniOut .logo {
+	opacity: 1;
+	animation: fadeOut 0.3s ease-in-out 0.2s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 }
@@ -244,6 +339,15 @@ img{
 	width: 145px !important;
 	border-left: 20px solid #015679 !important;
 	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+.aniOut #username.loaded, .aniOut #password.loaded {
+	opacity: 1 !important;
+	width: 145px !important;
+	border-left: 20px solid #015679 !important;
+	animation: recOutInput 0.5s ease-in-out 0.3s !important;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
 }
 
 .loaded {
@@ -307,6 +411,13 @@ img{
 	animation-fill-mode: forwards;
 }
 
+.aniOut #submit {
+	opacity: 1;
+	animation: fadeOut 0.4s ease-in-out 0.15s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
 #submit:active {
 	background-color: #464648;
 }
@@ -339,6 +450,13 @@ img{
 	opacity: 0;
 }
 
+.aniOut .user, .aniOut .lock {
+	opacity: 1 !important;
+	animation: fadeOut 0.3s ease-in-out 0s !important;
+	-webkit-animation-fill-mode: forwards !important;
+	animation-fill-mode: forwards !important;
+}
+
 .login a {
 	color: #4d4c51;
 	text-align: center;
@@ -350,6 +468,14 @@ img{
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 }
+
+.login .aniOut a {
+	opacity: 1;
+	animation: fadeOut 0.4s ease-in-out 0.1s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
 
 .login a:active {
 	color: #015679;
@@ -375,4 +501,35 @@ input {
 
 .hide {
 	display: none !important;
+}
+
+.forgotPassword h2 {
+	font-family: "Arial", sans-serif;
+	font-size: 18px;
+	color: #464648;
+	text-align: left;
+	padding-left: 7px;
+	margin-bottom: 5px;
+	animation: fadeIn 0.4s ease-in-out 0.7s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+.forgotPassword.aniOut h2 {
+	animation: fadeOut 0.4s ease-in-out 0.3s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	opacity: 1;
+}
+
+.form.forgotPassword {
+	width: 80%;
+	max-width: 230px;
+	text-align: center;
+	margin: 0 auto;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }

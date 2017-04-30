@@ -1,22 +1,5 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
+// Functions
+// Fix for viewport changes
 function hideCopyright() {
 	document.getElementsByClassName("form")[0].classList.remove("error");
 	document.getElementsByClassName("footer")[0].classList.add("hide");
@@ -26,27 +9,106 @@ function showCopyright() {
 	document.getElementsByClassName("footer")[0].classList.remove("hide");
 }
 
+// Shake if wrong login
 function shake() {
-	document.getElementById('username').classList.add("shake-horizontal");
-	document.getElementById('password').classList.add("shake-horizontal");
-	document.getElementById('username').classList.add("shake-constant");
-	document.getElementById('password').classList.add("shake-constant");
-	document.getElementsByClassName('user')[0].classList.add("shake-horizontal");
-	document.getElementsByClassName('lock')[0].classList.add("shake-horizontal");
-	document.getElementsByClassName('user')[0].classList.add("shake-constant");
-	document.getElementsByClassName('lock')[0].classList.add("shake-constant");
+	var loginUsername = document.getElementById('username');
+	var loginPassword = document.getElementById('password');
+	var userIcon = document.getElementsByClassName('user')[0];
+	var lockIcon = document.getElementsByClassName('lock')[0];
+	loginUsername.classList.add("shake-horizontal");
+	loginPassword.classList.add("shake-horizontal");
+	loginUsername.classList.add("shake-constant");
+	loginPassword.classList.add("shake-constant");
+	userIcon.classList.add("shake-horizontal");
+	lockIcon.classList.add("shake-horizontal");
+	userIcon.classList.add("shake-constant");
+	lockIcon.classList.add("shake-constant");
 	window.setTimeout(function () {
-		document.getElementById('username').classList.remove("shake-horizontal");
-		document.getElementById('password').classList.remove("shake-horizontal");
-		document.getElementById('username').classList.remove("shake-constant");
-		document.getElementById('password').classList.remove("shake-constant");
-		document.getElementsByClassName('user')[0].classList.remove("shake-horizontal");
-		document.getElementsByClassName('lock')[0].classList.remove("shake-horizontal");
-		document.getElementsByClassName('user')[0].classList.remove("shake-constant");
-		document.getElementsByClassName('lock')[0].classList.remove("shake-constant");
+		loginUsername.classList.remove("shake-horizontal");
+		loginPassword.classList.remove("shake-horizontal");
+		loginUsername.classList.remove("shake-constant");
+		loginPassword.classList.remove("shake-constant");
+		userIcon.classList.remove("shake-horizontal");
+		lockIcon.classList.remove("shake-horizontal");
+		userIcon.classList.remove("shake-constant");
+		lockIcon.classList.remove("shake-constant");
 	}, 400);
 }
 
+// Shake Animation Fixes
+function shakeFix(delay) {
+	var loginUsername = document.getElementById('username');
+	var loginPassword = document.getElementById('password');
+	var userIcon = document.getElementsByClassName('user')[0];
+	var lockIcon = document.getElementsByClassName('lock')[0];
+
+	setTimeout(function(){
+		loginUsername.classList.add("loaded");
+		loginPassword.classList.add("loaded");
+		userIcon.classList.add("loaded");
+		lockIcon.classList.add("loaded");
+	}, delay);
+}
+
+// Shake if wrong login
+function shakeForgot() {
+	var loginUsername = document.getElementById('username');
+	var userIcon = document.getElementsByClassName('user')[0];
+	loginUsername.classList.add("shake-horizontal");
+	loginUsername.classList.add("shake-constant");
+	userIcon.classList.add("shake-horizontal");
+	userIcon.classList.add("shake-constant");
+	window.setTimeout(function () {
+		loginUsername.classList.remove("shake-horizontal");
+		loginUsername.classList.remove("shake-constant");
+		userIcon.classList.remove("shake-horizontal");
+		userIcon.classList.remove("shake-constant");
+	}, 400);
+}
+
+// Shake Animation Fixes
+function shakeFixForgot(delay) {
+	var loginUsername = document.getElementById('username');
+	var userIcon = document.getElementsByClassName('user')[0];
+
+	setTimeout(function(){
+		loginUsername.classList.add("loaded");
+		userIcon.classList.add("loaded");
+	}, delay);
+}
+
+
+window.onload = function () {
+	shakeFix(1500);
+};
+
+// Logs the user out
+function logOut() {	
+	var userid = window.localStorage.getItem("userid");
+	var token = window.localStorage.getItem("token");
+	window.localStorage.removeItem("loggedIn");
+	window.localStorage.removeItem("userid");
+	window.localStorage.removeItem("token");
+	var http = new XMLHttpRequest();
+	var params = "userid=" + userid + "&token=" + token + "&action=logout";
+	
+	http.open("POST", url, true);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	http.onreadystatechange = function() {
+		if(http.readyState == 4 && http.status == 200) {
+			http.abort();
+			http = null;
+			
+			showLogin();
+		} else {
+			showLogin();
+		}
+	};
+	http.send(params);
+}
+
+// When App starts
 // API URL
 var url = "http://qrcode.innovatewebdesign.nl/api.php";
 
@@ -83,11 +145,150 @@ var app = {
     }
 };
 
+// Page Login
+function showLogin() {
+	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"#\" onclick=\"showForgotPassword();\">Forgot Password?</a></form>";
+	document.getElementById("submit").onclick = function () {
+		var loginForm = document.getElementsByClassName("form")[0];
+		loginForm.classList.remove("error");
+		loginForm.classList.add("submitted");
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		var http = new XMLHttpRequest();
+		var params = "username=" + username + "&password=" + password;
+		http.open("POST", url, true);
+		//Send the proper header information along with the request
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		http.onreadystatechange = function() {
+			if(http.readyState == 4 && http.status == 200) {
+				var textContent = http.responseText;
+				http.abort();
+				http = null;
+				var response = JSON.parse(textContent);
 
-// Shows the pages with restricted access in the division with the id content.
+				if (response["username"] == username) {
+					window.localStorage.setItem("loggedIn", 1);
+					window.localStorage.setItem("userid", response["userid"]);
+					window.localStorage.setItem("token", response["token"]);
+					showLoggedIn(response);
+				} else {
+					loginForm.classList.add("error");
+					shake();
+					alert("Wrong password");
+				}
+			} else {
+				shake();
+				loginForm.classList.add("error");
+			}
+		};
+		http.send(params);
+	}
+}
 
-// Dit krijg je te zien nadat je bent ingelogd
-function showLoggedIn(response) {
+function showLoginFromPassword() {
+	var form = document.getElementsByClassName("form")[0];
+	form.classList.add("aniOut");
+	var rectangle = document.getElementsByClassName("rectangle")[0];
+	rectangle.classList.add("notSmall");
+	rectangle.classList.remove("small");
+	window.setTimeout(function () {
+		form.classList.remove("aniOut");
+		form.innerHTML = "<img src=\"img/logo.png\" class=\"logo\" ><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"#\" onclick=\"showForgotPassword();\">Forgot Password?</a>";
+		form.classList.remove("forgotPassword");
+		form.classList.remove("error");
+		shakeFix(1500);
+		document.getElementById("submit").onclick = function () {
+			var loginForm = document.getElementsByClassName("form")[0];
+			loginForm.classList.remove("error");
+			loginForm.classList.add("submitted");
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+			var http = new XMLHttpRequest();
+			var params = "username=" + username + "&password=" + password;
+			http.open("POST", url, true);
+			//Send the proper header information along with the request
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			http.onreadystatechange = function() {
+				if(http.readyState == 4 && http.status == 200) {
+					var textContent = http.responseText;
+					http.abort();
+					http = null;
+					var response = JSON.parse(textContent);
+
+					if (response["username"] == username) {
+						window.localStorage.setItem("loggedIn", 1);
+						window.localStorage.setItem("userid", response["userid"]);
+						window.localStorage.setItem("token", response["token"]);
+						showLoggedIn(response);
+					} else {
+						loginForm.classList.add("error");
+						shake();
+						alert("Wrong password");
+					}
+				} else {
+					shake();
+					loginForm.classList.add("error");
+				}
+			};
+			http.send(params);
+		}
+	}, 800);
+}
+
+// Page Forgot Password
+function showForgotPassword() {
+	var form = document.getElementsByClassName("form")[0];
+	form.classList.add("aniOut");
+	var rectangle = document.getElementsByClassName("rectangle")[0];
+	rectangle.classList.add("small");
+	rectangle.classList.remove("notSmall");
+	window.setTimeout(function () {
+		form.classList.remove("aniOut");
+		form.innerHTML = "<h2>Reset Password</h2><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Reset\" /><br><a href=\"#\" onclick=\"showLoginFromPassword();\"><- Go back to login</a>";
+		form.classList.add("forgotPassword");
+		form.classList.remove("submitted");
+		shakeFixForgot(1500);
+		document.getElementById("submit").onclick = function () {
+			form.classList.remove("error");
+			form.classList.add("submitted");
+			var username = document.getElementById("username").value;
+			var http = new XMLHttpRequest();
+			var params = "username=" + username;
+			http.open("POST", url, true);
+			//Send the proper header information along with the request
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+			http.onreadystatechange = function() {
+				if(http.readyState == 4 && http.status == 200) {
+					var textContent = http.responseText;
+					http.abort();
+					http = null;
+					var response = JSON.parse(textContent);
+
+					if (response["username"] == username) {
+						window.localStorage.setItem("loggedIn", 1);
+						window.localStorage.setItem("userid", response["userid"]);
+						window.localStorage.setItem("token", response["token"]);
+						showLoggedIn(response);
+					} else {
+						form.classList.add("error");
+						shakeForgot();
+						alert("Wrong password");
+					}
+				} else {
+					shakeForgot();
+					form.classList.add("error");
+				}
+			};
+			http.send(params);
+		}
+	}, 800);
+}
+
+// Page Dashboard
+function showDashboard(response) {
 	document.getElementById("content").innerHTML = "Hallo " + response["firstname"] + " " + response["lastname"] + "<br /><br /><button id=\"startScan\">Remote login</button><br /><br /><button id=\"logout\">Logout</button>";
 	
 	//Zorgt ervoor dat de gebruiker kan uitloggen wanneer hij op de knop klikt
@@ -135,72 +336,6 @@ function showLoggedIn(response) {
 	}
 }
 
-// Shows login form
-function showLoginForm() {
-	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"https://www.google.nl\">Forgot Password?</a>";
-	document.getElementById("submit").onclick = function () {
-		document.getElementsByClassName("form")[0].classList.remove("error");
-		document.getElementsByClassName("form")[0].classList.add("submitted");
-		var username = document.getElementById("username").value;
-		var password = document.getElementById("password").value;
-		var http = new XMLHttpRequest();
-		var params = "username=" + username + "&password=" + password;
-		http.open("POST", url, true);
-		//Send the proper header information along with the request
-		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		
-		http.onreadystatechange = function() {
-			if(http.readyState == 4 && http.status == 200) {
-				var textContent = http.responseText;
-				http.abort();
-				http = null;
-				var response = JSON.parse(textContent);
-
-				if (response["username"] == username) {
-					window.localStorage.setItem("loggedIn", 1);
-					window.localStorage.setItem("userid", response["userid"]);
-					window.localStorage.setItem("token", response["token"]);
-					showLoggedIn(response);
-				} else {
-					document.getElementsByClassName("form")[0].classList.add("error");
-					shake();
-					alert("Wrong password");
-				}
-			} else {
-				shake();
-				document.getElementsByClassName("form")[0].classList.add("error");
-			}
-		};
-		http.send(params);
-	}
-}
-
-// Logs the user out
-function logOut() {	
-	var userid = window.localStorage.getItem("userid");
-	var token = window.localStorage.getItem("token");
-	window.localStorage.removeItem("loggedIn");
-	window.localStorage.removeItem("userid");
-	window.localStorage.removeItem("token");
-	var http = new XMLHttpRequest();
-	var params = "userid=" + userid + "&token=" + token + "&action=logout";
-	
-	http.open("POST", url, true);
-	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-	http.onreadystatechange = function() {
-		if(http.readyState == 4 && http.status == 200) {
-			http.abort();
-			http = null;
-			
-			showLoginForm();
-		} else {
-			showLoginForm();
-		}
-	};
-	http.send(params);
-}
-
 // Check login
 if (window.localStorage.getItem("loggedIn") == 1) {
 	var userid = window.localStorage.getItem("userid");
@@ -220,80 +355,22 @@ if (window.localStorage.getItem("loggedIn") == 1) {
 			
 			// If API gives response
 			if (response !== false) {
-				showLoggedIn(response);
+				showDashboard(response);
 			} else {
 				window.localStorage.removeItem("loggedIn");
 				window.localStorage.removeItem("userid");
 				window.localStorage.removeItem("token");
-				showLoginForm();
+				showLogin();
 			}
 		} else {
 			window.localStorage.removeItem("loggedIn");
 			window.localStorage.removeItem("userid");
 			window.localStorage.removeItem("token");
-			showLoginForm();
+			showLogin();
 		}
 	};
 	http.send(params);
 } else {
-	showLoginForm();
+	showLogin();
 }
 
-function NoClickDelay(el) {
-	this.element = typeof el == 'object' ? el : document.getElementById(el);
-	if( window.Touch ) this.element.addEventListener('touchstart', this, false);
-}
-
-NoClickDelay.prototype = {
-	handleEvent: function(e) {
-		switch(e.type) {
-			case 'touchstart': this.onTouchStart(e); break;
-			case 'touchmove': this.onTouchMove(e); break;
-			case 'touchend': this.onTouchEnd(e); break;
-		}
-	},
-
-	onTouchStart: function(e) {
-		e.preventDefault();
-		this.moved = false;
-
-		this.theTarget = document.elementFromPoint(e.targetTouches[0].clientX, e.targetTouches[0].clientY);
-		if(this.theTarget.nodeType == 3) this.theTarget = theTarget.parentNode;
-		this.theTarget.className+= ' pressed';
-
-		this.element.addEventListener('touchmove', this, false);
-		this.element.addEventListener('touchend', this, false);
-	},
-
-	onTouchMove: function(e) {
-		this.moved = true;
-		this.theTarget.className = this.theTarget.className.replace(/ ?pressed/gi, '');
-	},
-
-	onTouchEnd: function(e) {
-		this.element.removeEventListener('touchmove', this, false);
-		this.element.removeEventListener('touchend', this, false);
-
-		if( !this.moved && this.theTarget ) {
-			this.theTarget.className = this.theTarget.className.replace(/ ?pressed/gi, '');
-			var theEvent = document.createEvent('MouseEvents');
-			theEvent.initEvent('click', true, true);
-			this.theTarget.dispatchEvent(theEvent);
-		}
-
-		this.theTarget = undefined;
-	}
-};
-
-window.onload = function () {
-	if (event.keyCode == 13) {
-         document.getElementById("submit").click();
-    }
-	
-	setTimeout(function(){
-		document.getElementById('username').classList.add("loaded");
-		document.getElementById('password').classList.add("loaded");
-		document.getElementsByClassName('user')[0].classList.add("loaded");
-		document.getElementsByClassName('lock')[0].classList.add("loaded");
-	}, 1500);
-};

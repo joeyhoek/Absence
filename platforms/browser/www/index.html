@@ -9,6 +9,15 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/shake.css" />
         <title>Absence</title>
+        <script src="js/fastclick.js" type="application/javascript"></script>
+		<script type="text/javascript">
+		document.addEventListener("deviceready", onDeviceReady, false);
+
+		function onDeviceReady() {
+			// Fast-click to elliminate the delay of 300ms
+			FastClick.attach(document.body);
+		}
+		</script>
     </head>
     <body>
 		<div id="content" class="login"></div>
