@@ -37,11 +37,7 @@
     <plugin name="cordova-plugin-uniquedeviceid" source="npm" />
     <preference name="SplashMaintainAspectRatio" value="true" />
 	<preference name="SplashShowOnlyFirstTime" value="false" />
-   	<preference name="AutoHideSplashScreen" value="false" />  
-	<preference name="SplashScreenDelay" value="10000" />
-	<preference name="ShowSplashScreenSpinner" value="false" />  
-	<preference name="FadeSplashScreen" value="true" />  
-	<preference name="FadeSplashScreenDuration" value="0.3" />  
+   	<preference name="AutoHideSplashScreen" value="false" />    
     <icon src="icon.png" />
 	<splash src="splash.png" />
 	<platform name="ios">
