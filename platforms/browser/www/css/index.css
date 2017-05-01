@@ -134,31 +134,29 @@ body, html {
 @keyframes recInInput {
 	0% {
 		opacity: 0;
-		width: 0px;
+		transform: scaleX(0);
 		border-left: 0.5px solid #b8b7be;
 	}
 	
 	20%{
 		opacity: 1;
-		width: 0px;
+		transform: scaleX(0);
 		border-left: 0.5px solid #b8b7be;
 	}
 	
 	45% {
 		opacity: 1;
-		width: 72.5px;
 		border-left: 10px solid #015679;
 	}
 	
 	70% {
 		opacity: 1;
-		width: 145px;
 		border-left: 20px solid #015679;
 	}
 	
 	100% {
 		opacity: 1;
-		width: 145px;
+		transform: scaleX(1);
 		border-left: 20px solid #015679;
 	}
 }
@@ -166,31 +164,29 @@ body, html {
 @keyframes recOutInput {
 	0% {
 		opacity: 1;
-		width: 145px;
+		transform: scaleX(1);
 		border-left: 20px solid #015679;
 	}
 	
 	30% {
 		opacity: 1;
-		width: 145px;
+		transform: scaleX(1);
 		border-left: 20px solid #015679;
 	}
 	
 	55% {
 		opacity: 1;
-		width: 72.5px;
 		border-left: 10px solid #015679;
 	}
 		
 	80%{
 		opacity: 1;
-		width: 0px;
 		border-left: 0.5px solid #b8b7be;
 	}
 	
 	100% {
 		opacity: 0;
-		width: 0px;
+		transform: scaleX(0);
 		border-left: 0.5px solid #b8b7be;
 	}
 }
@@ -255,20 +251,16 @@ html {
 
 .rectangle.small {
 	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
-	animation: logInRecSmall 0.7s ease-in-out 0s;
+	animation: logInRecSmall 0.5s ease-in-out 0.25s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 }
 
 .rectangle.notSmall {
 	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0.76);
-	animation: logInRecNotSmall 0.7s ease-in-out 0s;
+	animation: logInRecNotSmall 0.5s ease-in-out 0.25s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
-}
-
-#content.login {
-	
 }
 
 #content.login .logo {
@@ -297,9 +289,13 @@ h1 {
 
 .aniOut .logo {
 	opacity: 1;
-	animation: fadeOut 0.3s ease-in-out 0.2s;
+	animation: fadeOut 0.4s ease-in-out 0s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
+}
+
+.aniIn .logo {
+	animation-delay: 0.4s;
 }
 
 .form {
@@ -314,7 +310,7 @@ h1 {
 }
 
 .form input:not(#submit) {
-	width: 0px;
+	transform: scaleX(0);
 	max-width: 145px;
 	padding: 2px 40px 2px 10px;
 	height: 38px;
@@ -325,6 +321,7 @@ h1 {
 	border-right: 0.5px solid #b8b7be;
 	border-top: 0.5px solid #b8b7be;
 	border-bottom: 0.5px solid #b8b7be;
+	width: 145px;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 	color: #464648;
@@ -334,25 +331,29 @@ h1 {
 }
 
 #username.loaded, #password.loaded {
-	animation: none !important;
+	transform: scaleX(1) !important;
 	opacity: 1 !important;
-	width: 145px !important;
 	border-left: 20px solid #015679 !important;
+	animation: none !important;
 	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
 }
 
-.aniOut #username.loaded, .aniOut #password.loaded {
+.aniOut #username, .aniOut #password {
 	opacity: 1 !important;
-	width: 145px !important;
 	border-left: 20px solid #015679 !important;
-	animation: recOutInput 0.5s ease-in-out 0.3s !important;
+	transform: scaleX(1) !important;
+	animation: recOutInput 0.4s ease-in-out 0.1s !important;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 }
 
+.aniIn #username, .aniIn #password {
+	animation-delay: 0.3s !important;
+}
+
 .loaded {
-	animation: none !important;
 	opacity: 1 !important;
+	animation: none !important;
 }
 
 .submitted #username:invalid, .submitted #password:invalid {
@@ -413,16 +414,20 @@ h1 {
 
 .aniOut #submit {
 	opacity: 1;
-	animation: fadeOut 0.4s ease-in-out 0.15s;
+	animation: fadeOut 0.4s ease-in-out 0.05s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
+}
+
+.aniIn #submit {
+	animation-delay: 0.45s;
 }
 
 #submit:active {
 	background-color: #464648;
 }
 
-.user{
+.user {
 	color:#46454a;
 	width: 24px;
 	float: right;
@@ -436,7 +441,7 @@ h1 {
 	animation-fill-mode: forwards;
 }
 
-.lock{
+.lock {
 	color:#46454a;
 	width: 30px;
 	float: right;
@@ -457,6 +462,10 @@ h1 {
 	animation-fill-mode: forwards !important;
 }
 
+.aniIn .user, .aniIn .lock {
+	animation-delay: 0.6s !important;
+}
+
 .login a {
 	color: #4d4c51;
 	text-align: center;
@@ -471,17 +480,20 @@ h1 {
 
 .login .aniOut a {
 	opacity: 1;
-	animation: fadeOut 0.4s ease-in-out 0.1s;
+	animation: fadeOut 0.4s ease-in-out 0s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 }
 
+.login .aniIn a {
+	animation-delay: 0.475s;
+}
 
 .login a:active {
 	color: #015679;
 }
 
-.footer{
+.footer {
 	position: fixed;
 	right: -100px;
   	bottom: 1em;
@@ -517,10 +529,14 @@ input {
 }
 
 .forgotPassword.aniOut h2 {
-	animation: fadeOut 0.4s ease-in-out 0.3s;
+	animation: fadeOut 0.4s ease-in-out 0.0s;
 	-webkit-animation-fill-mode: forwards;
 	animation-fill-mode: forwards;
 	opacity: 1;
+}
+
+.forgotPassword.aniIn h2 {
+	animation-delay: 0.35s;
 }
 
 .form.forgotPassword {

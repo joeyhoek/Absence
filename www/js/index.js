@@ -189,15 +189,18 @@ function showLogin() {
 function showLoginFromPassword() {
 	var form = document.getElementsByClassName("form")[0];
 	form.classList.add("aniOut");
+	form.classList.remove("aniIn");
 	var rectangle = document.getElementsByClassName("rectangle")[0];
 	rectangle.classList.add("notSmall");
 	rectangle.classList.remove("small");
 	window.setTimeout(function () {
+		form.classList.add("aniIn");
 		form.classList.remove("aniOut");
 		form.innerHTML = "<img src=\"img/logo.png\" class=\"logo\" ><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"#\" onclick=\"showForgotPassword();\">Forgot Password?</a>";
 		form.classList.remove("forgotPassword");
 		form.classList.remove("submitted");
-		shakeFix(1500);
+		form.classList.remove("error");
+		shakeFix(800);
 		document.getElementById("submit").onclick = function () {
 			var loginForm = document.getElementsByClassName("form")[0];
 			loginForm.classList.remove("error");
@@ -233,23 +236,26 @@ function showLoginFromPassword() {
 				}
 			};
 			http.send(params);
-		}
-	}, 800);
+		};
+	}, 500);
 }
 
 // Page Forgot Password
 function showForgotPassword() {
 	var form = document.getElementsByClassName("form")[0];
 	form.classList.add("aniOut");
+	form.classList.remove("aniIn");
 	var rectangle = document.getElementsByClassName("rectangle")[0];
 	rectangle.classList.add("small");
 	rectangle.classList.remove("notSmall");
 	window.setTimeout(function () {
+		form.classList.add("aniIn");
 		form.classList.remove("aniOut");
 		form.innerHTML = "<h2>Reset Password</h2><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Reset\" /><br><a href=\"#\" onclick=\"showLoginFromPassword();\"><- Go back to login</a>";
 		form.classList.add("forgotPassword");
 		form.classList.remove("submitted");
-		shakeFixForgot(1500);
+		form.classList.remove("error");
+		shakeFixForgot(800);
 		document.getElementById("submit").onclick = function () {
 			form.classList.remove("error");
 			form.classList.add("submitted");
@@ -283,8 +289,8 @@ function showForgotPassword() {
 				}
 			};
 			http.send(params);
-		}
-	}, 800);
+		};
+	}, 500);
 }
 
 // Page Dashboard
