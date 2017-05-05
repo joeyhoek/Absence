@@ -82,35 +82,9 @@ window.onload = function () {
 	shakeFix(1500);
 };
 
-// Logs the user out
-function logOut() {	
-	var userid = window.localStorage.getItem("userid");
-	var token = window.localStorage.getItem("token");
-	window.localStorage.removeItem("loggedIn");
-	window.localStorage.removeItem("userid");
-	window.localStorage.removeItem("token");
-	var http = new XMLHttpRequest();
-	var params = "userid=" + userid + "&token=" + token + "&action=logout";
-	
-	http.open("POST", url, true);
-	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-	http.onreadystatechange = function() {
-		if(http.readyState == 4 && http.status == 200) {
-			http.abort();
-			http = null;
-			
-			showLogin();
-		} else {
-			showLogin();
-		}
-	};
-	http.send(params);
-}
-
 // When App starts
 // API URL
-var url = "http://absence.innovatewebdesign.nl/api/mobileClient.php";
+var url = "http://absence.innovatewebdesign.nl/mobileClient";
 
 // Default APP Booting sequence
 var app = {
@@ -145,9 +119,36 @@ var app = {
     }
 };
 
-// Page Login
-function showLogin() {
-	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"#\" onclick=\"showForgotPassword();\">Forgot Password?</a></form>";
+// Logs the user out
+function logOut() {	
+	var userId = window.localStorage.getItem("userId");
+	var token = window.localStorage.getItem("token");
+	window.localStorage.removeItem("loggedIn");
+	window.localStorage.removeItem("userId");
+	window.localStorage.removeItem("token");
+	var http = new XMLHttpRequest();
+	var params = "userId=" + userId + "&token=" + token + "&action=logout";
+	
+	http.open("POST", url, true);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	http.onreadystatechange = function() {
+		if(http.readyState == 4 && http.status == 200) {
+			http.abort();
+			http = null;
+			
+			showLogin();
+			shakeFix(1500);
+		} else {
+			showLogin();
+			shakeFix(1500);
+		}
+	};
+	http.send(params);
+}
+
+// Logs the user in
+function login() {
 	document.getElementById("submit").onclick = function () {
 		var loginForm = document.getElementsByClassName("form")[0];
 		loginForm.classList.remove("error");
@@ -159,7 +160,7 @@ function showLogin() {
 		http.open("POST", url, true);
 		//Send the proper header information along with the request
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		
+
 		http.onreadystatechange = function() {
 			if(http.readyState == 4 && http.status == 200) {
 				var textContent = http.responseText;
@@ -167,15 +168,14 @@ function showLogin() {
 				http = null;
 				var response = JSON.parse(textContent);
 
-				if (response["username"] == username) {
+				if (response["userId"] !== null) {
 					window.localStorage.setItem("loggedIn", 1);
-					window.localStorage.setItem("userid", response["userid"]);
+					window.localStorage.setItem("userId", response["userId"]);
 					window.localStorage.setItem("token", response["token"]);
-					showLoggedIn(response);
+					showDashboard(response);
 				} else {
 					loginForm.classList.add("error");
 					shake();
-					alert("Wrong password");
 				}
 			} else {
 				shake();
@@ -183,7 +183,13 @@ function showLogin() {
 			}
 		};
 		http.send(params);
-	}
+	};
+}
+
+// Page Login
+function showLogin() {
+	document.getElementById("content").innerHTML = "<div class=\"rectangle\"></div><form class=\"form\" onsubmit=\"return document.loginForm.user.value != '' && document.loginForm.pass.value != ''\"><img src=\"img/logo.png\" class=\"logo\" ><input type=\"text\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"#\" onclick=\"showForgotPassword();\">Forgot Password?</a></form>";
+	login();
 }
 
 function showLoginFromPassword() {
@@ -194,46 +200,11 @@ function showLoginFromPassword() {
 	rectangle.classList.remove("small");
 	window.setTimeout(function () {
 		form.classList.remove("aniOut");
-		form.innerHTML = "<img src=\"img/logo.png\" class=\"logo\" ><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"#\" onclick=\"showForgotPassword();\">Forgot Password?</a>";
+		form.innerHTML = "<img src=\"img/logo.png\" class=\"logo\" ><input type=\"text\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"password\" name=\"password\" id=\"password\" data-dependency=\"second\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"lock\" src=\"img/lock_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Sign In\" /><br><a href=\"#\" onclick=\"showForgotPassword();\">Forgot Password?</a>";
 		form.classList.remove("forgotPassword");
 		form.classList.remove("submitted");
 		shakeFix(1500);
-		document.getElementById("submit").onclick = function () {
-			var loginForm = document.getElementsByClassName("form")[0];
-			loginForm.classList.remove("error");
-			loginForm.classList.add("submitted");
-			var username = document.getElementById("username").value;
-			var password = document.getElementById("password").value;
-			var http = new XMLHttpRequest();
-			var params = "username=" + username + "&password=" + password;
-			http.open("POST", url, true);
-			//Send the proper header information along with the request
-			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-			http.onreadystatechange = function() {
-				if(http.readyState == 4 && http.status == 200) {
-					var textContent = http.responseText;
-					http.abort();
-					http = null;
-					var response = JSON.parse(textContent);
-
-					if (response["username"] == username) {
-						window.localStorage.setItem("loggedIn", 1);
-						window.localStorage.setItem("userid", response["userid"]);
-						window.localStorage.setItem("token", response["token"]);
-						showLoggedIn(response);
-					} else {
-						loginForm.classList.add("error");
-						shake();
-						alert("Wrong password");
-					}
-				} else {
-					shake();
-					loginForm.classList.add("error");
-				}
-			};
-			http.send(params);
-		}
+		login();
 	}, 800);
 }
 
@@ -255,35 +226,24 @@ function showForgotPassword() {
 			form.classList.add("submitted");
 			var username = document.getElementById("username").value;
 			var http = new XMLHttpRequest();
-			var params = "username=" + username;
+			var params = "username=" + username + "&action=resetPass";
 			http.open("POST", url, true);
 			//Send the proper header information along with the request
 			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 			http.onreadystatechange = function() {
-				if(http.readyState == 4 && http.status == 200) {
+				if (http.readyState == 4 && http.status == 200) {
 					var textContent = http.responseText;
 					http.abort();
 					http = null;
-					var response = JSON.parse(textContent);
-
-					if (response["username"] == username) {
-						window.localStorage.setItem("loggedIn", 1);
-						window.localStorage.setItem("userid", response["userid"]);
-						window.localStorage.setItem("token", response["token"]);
-						showLoggedIn(response);
-					} else {
-						form.classList.add("error");
-						shakeForgot();
-						alert("Wrong password");
-					}
-				} else {
+					showLoginFromPassword();
+				} else if (http.readyState == 4) {
 					shakeForgot();
 					form.classList.add("error");
 				}
 			};
 			http.send(params);
-		}
+		};
 	}, 800);
 }
 
@@ -310,10 +270,10 @@ function showDashboard(response) {
 				if (result.format !== "" && result.format !== "QR_CODE"){
 					alert("Scanning failed: Scan is not a QR Code");
 				} else if (result.format !== "") {
-					var userid = window.localStorage.getItem("userid");
+					var userId = window.localStorage.getItem("userId");
 					var token = window.localStorage.getItem("token");
 					var httpQRLogin = new XMLHttpRequest();
-					var paramsQRLogin = "userid=" + userid + "&token=" + token + "&clientid=" + result.text;
+					var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientid=" + result.text;
 					httpQRLogin.open("POST", url, true);
 
 					//Send the proper header information along with the request
@@ -338,10 +298,10 @@ function showDashboard(response) {
 
 // Check login
 if (window.localStorage.getItem("loggedIn") == 1) {
-	var userid = window.localStorage.getItem("userid");
+	var userId = window.localStorage.getItem("userId");
 	var token = window.localStorage.getItem("token");
 	var http = new XMLHttpRequest();
-	var params = "userid=" + userid + "&token=" + token;
+	var params = "userId=" + userId + "&token=" + token;
 	
 	http.open("POST", url, true);
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -358,13 +318,13 @@ if (window.localStorage.getItem("loggedIn") == 1) {
 				showDashboard(response);
 			} else {
 				window.localStorage.removeItem("loggedIn");
-				window.localStorage.removeItem("userid");
+				window.localStorage.removeItem("userId");
 				window.localStorage.removeItem("token");
 				showLogin();
 			}
 		} else {
 			window.localStorage.removeItem("loggedIn");
-			window.localStorage.removeItem("userid");
+			window.localStorage.removeItem("userId");
 			window.localStorage.removeItem("token");
 			showLogin();
 		}

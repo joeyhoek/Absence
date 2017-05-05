@@ -38,7 +38,7 @@
 	user-drag: none;
 }
 
-input[type="text"], textearea {
+input[type="text"], textarea {
 	-webkit-user-select: auto !important;
 	-khtml-user-select: auto !important;
 	-moz-user-select: auto !important;
