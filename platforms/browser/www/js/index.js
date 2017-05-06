@@ -294,7 +294,7 @@ function showDashboard(response) {
 }
 
 // Check login
-function checklogin () {
+function checklogin (var first = false) {
 	if (window.localStorage.getItem("loggedIn") == 1) {
 		var userId = window.localStorage.getItem("userId");
 		var token = window.localStorage.getItem("token");
@@ -312,7 +312,9 @@ function checklogin () {
 				var response = JSON.parse(textContent);
 
 				// If API gives response
-				if (response == false) {
+				if (response !== false && first !== false) {
+					showDashboard(response);
+				} else if (response == false) {
 					logOut();
 					clearInterval(window.localStorage.getItem("checkLogin"));
 				}
@@ -328,5 +330,5 @@ function checklogin () {
 	}
 }
 
-checklogin();
+checklogin(true);
 
