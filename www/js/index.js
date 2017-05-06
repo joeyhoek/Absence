@@ -77,11 +77,6 @@ function shakeFixForgot(delay) {
 	}, delay);
 }
 
-
-window.onload = function () {
-	shakeFix(1500);
-};
-
 // When App starts
 // API URL
 var url = "http://absence.innovatewebdesign.nl/mobileClient";
@@ -217,7 +212,7 @@ function showForgotPassword() {
 	rectangle.classList.remove("notSmall");
 	window.setTimeout(function () {
 		form.classList.remove("aniOut");
-		form.innerHTML = "<h2>Reset Password</h2><input type=\"email\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Reset\" /><br><a href=\"#\" onclick=\"showLoginFromPassword();\"><- Go back to login</a>";
+		form.innerHTML = "<h2>Reset Password</h2><input type=\"text\" id=\"username\" data-dependency=\"first\" name=\"username\" autocapitalize=\"off\" autocomplete=\"new-password\" onfocus=\"hideCopyright();\" onblur=\"showCopyright();\" required autocorrect=\"off\" spellcheck=\"false\" /><img class=\"user\" src=\"img/user_icon.png\"><br /><input type=\"button\" id=\"submit\" value=\"Reset\" /><br><a href=\"#\" onclick=\"showLoginFromPassword();\"><- Go back to login</a>";
 		form.classList.add("forgotPassword");
 		form.classList.remove("submitted");
 		shakeFixForgot(1500);
@@ -252,7 +247,9 @@ function showDashboard(response) {
 	document.getElementById("content").innerHTML = "Hallo " + response["firstname"] + " " + response["lastname"] + "<br /><br /><button id=\"startScan\">Remote login</button><br /><br /><button id=\"logout\">Logout</button>";
 	
 	//Zorgt ervoor dat de gebruiker kan uitloggen wanneer hij op de knop klikt
-	document.getElementById("logout").onclick = function () {logOut();};
+	document.getElementById("logout").onclick = function () { logOut(); };
+	
+	window.localStorage.setItem("checkLogin", setInterval(function () { checklogin(); }, 2000));
 	
 	// Scan QR functions
 	var resultDiv;
@@ -266,26 +263,26 @@ function showDashboard(response) {
 	function startScan() {
 		cordova.plugins.barcodeScanner.scan(
 			function (result) {
-				// Check the barcode type
-				if (result.format !== "" && result.format !== "QR_CODE"){
-					alert("Scanning failed: Scan is not a QR Code");
-				} else if (result.format !== "") {
+				if (result.format !== "" && result.format == "QR_CODE") {
 					var userId = window.localStorage.getItem("userId");
 					var token = window.localStorage.getItem("token");
 					var httpQRLogin = new XMLHttpRequest();
-					var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientid=" + result.text;
-					httpQRLogin.open("POST", url, true);
-
-					//Send the proper header information along with the request
-					httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-					httpQRLogin.onreadystatechange = function() {
-						if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
-							if(httpQRLogin.responseText == 1) {
-								alert("You'll be logged in within a matter of seconds.");
+					result = JSON.parse(result.text);
+					if (result.type == "login") {
+						var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientId=" + result.value;
+						httpQRLogin.open("POST", url, true);
+						
+						//Send the proper header information along with the request
+						httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+						httpQRLogin.onreadystatechange = function() {
+							if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
+								if(httpQRLogin.responseText == 1) {
+									alert("You'll be logged in within a matter of seconds.");
+								}
 							}
-						}
-					};
-					httpQRLogin.send(paramsQRLogin);
+						};
+						httpQRLogin.send(paramsQRLogin);
+					}
 				}
 			},
 			function (error) {
@@ -297,40 +294,39 @@ function showDashboard(response) {
 }
 
 // Check login
-if (window.localStorage.getItem("loggedIn") == 1) {
-	var userId = window.localStorage.getItem("userId");
-	var token = window.localStorage.getItem("token");
-	var http = new XMLHttpRequest();
-	var params = "userId=" + userId + "&token=" + token;
-	
-	http.open("POST", url, true);
-	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+function checklogin () {
+	if (window.localStorage.getItem("loggedIn") == 1) {
+		var userId = window.localStorage.getItem("userId");
+		var token = window.localStorage.getItem("token");
+		var http = new XMLHttpRequest();
+		var params = "userId=" + userId + "&token=" + token;
 
-	http.onreadystatechange = function() {
-		if(http.readyState == 4 && http.status == 200) {
-			var textContent = http.responseText;
-			http.abort();
-			http = null;
-			var response = JSON.parse(textContent);
-			
-			// If API gives response
-			if (response !== false) {
-				showDashboard(response);
-			} else {
-				window.localStorage.removeItem("loggedIn");
-				window.localStorage.removeItem("userId");
-				window.localStorage.removeItem("token");
-				showLogin();
+		http.open("POST", url, true);
+		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+		http.onreadystatechange = function() {
+			if(http.readyState == 4 && http.status == 200) {
+				var textContent = http.responseText;
+				http.abort();
+				http = null;
+				var response = JSON.parse(textContent);
+
+				// If API gives response
+				if (response == false) {
+					logOut();
+					clearInterval(window.localStorage.getItem("checkLogin"));
+				}
+			} else if (http.readyState == 4) {
+				logOut();
+				clearInterval(window.localStorage.getItem("checkLogin"));
 			}
-		} else {
-			window.localStorage.removeItem("loggedIn");
-			window.localStorage.removeItem("userId");
-			window.localStorage.removeItem("token");
-			showLogin();
-		}
-	};
-	http.send(params);
-} else {
-	showLogin();
+		};
+		http.send(params);
+	} else {
+		logOut();
+		clearInterval(window.localStorage.getItem("checkLogin"));
+	}
 }
+
+checklogin();
 
