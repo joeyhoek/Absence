@@ -1,0 +1,691 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+	-webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-touch-callout: none;
+	-moz-touch-callout: none;
+	-ms-touch-callout: none;
+	touch-callout: none;
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	-ms-user-drag: none;
+	user-drag: none;
+}
+
+input[type="text"], textearea {
+	-webkit-user-select: auto !important;
+	-khtml-user-select: auto !important;
+	-moz-user-select: auto !important;
+	-ms-user-select: auto !important;
+	user-select: auto !important;
+}
+
+body, html {
+	max-width: 100%;
+	overflow-x: hidden !important;
+	margin: 0;
+	padding: 0;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeOut {
+	from {
+		opacity: 1;
+	}
+	
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		left: 100px;
+		right: -100px;
+	}
+	
+	to {
+		opacity: 1;
+		left: 0;
+		right: 0;
+	}
+}
+
+@keyframes slideOut {
+	from {
+		opacity: 1;
+		left: 0;
+		right: 0;
+	}
+	 
+	to {
+		opacity: 0;
+		left: 100px;
+		right: -100px;
+	}
+}
+
+@keyframes logInRecIn {
+	from {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	}
+	
+	to {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
+	}
+}
+
+@keyframes logInRecSmall {
+	from {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
+	}
+	
+	to {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0.76);
+	}
+}
+
+@keyframes logInRecNotSmall {
+	from {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0.76);
+	}
+	
+	to {
+		transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
+	}
+}
+
+@keyframes recInInput {
+	0% {
+		opacity: 0;
+		transform: scaleX(0);
+		border-left: 0.5px solid #b8b7be;
+	}
+	
+	20%{
+		opacity: 1;
+		transform: scaleX(0);
+		border-left: 0.5px solid #b8b7be;
+	}
+	
+	45% {
+		opacity: 1;
+		border-left: 10px solid #015679;
+	}
+	
+	70% {
+		opacity: 1;
+		border-left: 20px solid #015679;
+	}
+	
+	100% {
+		opacity: 1;
+		transform: scaleX(1);
+		border-left: 20px solid #015679;
+	}
+}
+
+@keyframes recOutInput {
+	0% {
+		opacity: 1;
+		transform: scaleX(1);
+		border-left: 20px solid #015679;
+	}
+	
+	30% {
+		opacity: 1;
+		transform: scaleX(1);
+		border-left: 20px solid #015679;
+	}
+	
+	55% {
+		opacity: 1;
+		border-left: 10px solid #015679;
+	}
+		
+	80%{
+		opacity: 1;
+		border-left: 0.5px solid #b8b7be;
+	}
+	
+	100% {
+		opacity: 0;
+		transform: scaleX(0);
+		border-left: 0.5px solid #b8b7be;
+	}
+}
+
+@keyframes recFixInput {
+	0% {
+		opacity: 1;
+		width: 145px;
+		border-left: 20px solid #015679;
+	}
+	
+	100% {
+		opacity: 1;
+		width: 145px;
+		border-left: 20px solid #0ba2dd;
+	}
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text'*/
+	background: url("../img/achtergrond.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/achtergrond.jpg', sizingMethod='scale');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../img/achtergrond.jpg', sizingMethod='scale')";
+	min-height: 100%;
+    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size:12px;
+    height:100%;
+	opacity: 0;
+	animation: fadeIn 0.6s ease-in-out 0s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+html {
+	min-height: 100%;
+}
+
+.rectangle{
+	z-index: -1;
+	box-shadow: 0px 0px 131px 0px rgba(0, 0, 0, 0.21);
+	width: 170%;
+	background-color: #FFFFFF;
+	position: fixed;
+	height: 330px;
+	top: 50%;
+	left: 50%;
+	-moz-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	-ms-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	-webkit-transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0);
+	-webkit-animation: logInRecIn 0.7s ease-in-out 0.3s;
+	animation: logInRecIn 0.7s ease-in-out 0.3s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.rectangle.small {
+	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(1);
+	animation: logInRecSmall 0.5s ease-in-out 0.25s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.rectangle.notSmall {
+	transform: translate(-50%, -50%) rotate(-27deg) translate3d(0,0,0) scaleY(0.76);
+	animation: logInRecNotSmall 0.5s ease-in-out 0.25s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+#content.login .logo {
+	margin-bottom: 25px;
+}
+
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+.logo{
+	width: 90px;
+    height: auto;
+	display:block;
+	margin: 0 auto;
+	opacity: 0;
+	animation: fadeIn 0.5s ease-in-out 0.8s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.aniOut .logo {
+	opacity: 1;
+	animation: fadeOut 0.4s ease-in-out 0s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.aniIn .logo {
+	animation-delay: 0.4s;
+}
+
+.form {
+	width: 80%;
+	max-width: 230px;
+	text-align: center;
+	margin: 0 auto;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.form input:not(#submit) {
+	transform: scaleX(0);
+	max-width: 145px;
+	padding: 2px 40px 2px 10px;
+	height: 38px;
+	margin-bottom: 5px;	
+	animation: recInInput 0.5s ease-in-out 0.6s;
+	opacity: 0;
+	border-left: 0.5px solid #b8b7be;
+	border-right: 0.5px solid #b8b7be;
+	border-top: 0.5px solid #b8b7be;
+	border-bottom: 0.5px solid #b8b7be;
+	width: 145px;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	color: #464648;
+	font-size: 14px;
+	overflow-x: auto;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s; 
+}
+
+#username.loaded, #password.loaded {
+	transform: scaleX(1) !important;
+	opacity: 1 !important;
+	border-left: 20px solid #015679 !important;
+	animation: none !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+.aniOut #username, .aniOut #password {
+	opacity: 1 !important;
+	border-left: 20px solid #015679 !important;
+	transform: scaleX(1) !important;
+	animation: recOutInput 0.4s ease-in-out 0.1s !important;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.aniIn #username, .aniIn #password {
+	animation-delay: 0.3s !important;
+}
+
+.loaded {
+	opacity: 1 !important;
+	animation: none !important;
+}
+
+.submitted #username:invalid, .submitted #password:invalid {
+	border-left: 20px solid #b32704 !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+.form #username.loaded.shake-horizontal.shake-constant:not(#submit), .form #password.loaded.shake-horizontal.shake-constant:not(#submit), .user.shake-horizontal.shake-constant, .lock.shake-horizontal.shake-constant {
+	animation-name: shake-horizontal !important;
+    animation-duration: 2800ms !important;
+    animation-timing-function: ease-in-out !important;
+    animation-iteration-count: infinite !important;
+	animation-delay: 0s !important;
+	opacity: 1 !important;
+}
+
+.user.shake-horizontal.shake-constant, .lock.shake-horizontal.shake-constant {
+	opacity: 1 !important;
+}
+
+#username:valid, #password:valid {
+	border-left: 20px solid #4cb002 !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+.error #username, .error #password {
+	border-left: 20px solid #b32704 !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+.form input:focus:not(#submit) {
+	box-shadow: 0 0 5px 0 rgba(0,0,0,0.4);
+	border-right: 0.5px solid #b8b7be;
+	border-top: 0.5px solid #b8b7be;
+	border-bottom: 0.5px solid #b8b7be;
+	animation-play-state: paused;
+	animation: none;
+	opacity: 1;
+	width: 145px;
+	border-left: 20px solid #0ba2dd !important;
+	transition: border-left 0.3s ease 0s, width 0s ease 0s, opacity 0s ease 0s;
+}
+
+#submit {
+	width: 120px;
+	background-color: #015679;
+	color: #FFFFFF;
+	border: 0;
+	margin: 10px auto;
+	height: 37px; 
+	font-size: 16px;
+	transition: background-color 0.1s ease-in-out;
+	opacity: 0;
+	animation: fadeIn 0.4s ease-in-out 0.9s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.aniOut #submit {
+	opacity: 1;
+	animation: fadeOut 0.4s ease-in-out 0.05s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.aniIn #submit {
+	animation-delay: 0.45s;
+}
+
+#submit:active {
+	background-color: #464648;
+}
+
+.user {
+	color:#46454a;
+	width: 24px;
+	float: right;
+	margin-top: -40px;
+	margin-right: 18px;
+	z-index: 999999;
+	position: relative;
+	opacity: 0;
+	animation: fadeIn 0.3s ease-in-out 1.2s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.lock {
+	color:#46454a;
+	width: 30px;
+	float: right;
+	margin-top: -43px;
+	margin-right: 15px;
+	z-index: 999999;
+	position: relative;
+	animation: fadeIn 0.3s ease-in-out 1.2s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+.aniOut .user, .aniOut .lock {
+	opacity: 1 !important;
+	animation: fadeOut 0.3s ease-in-out 0s !important;
+	-webkit-animation-fill-mode: forwards !important;
+	animation-fill-mode: forwards !important;
+}
+
+.aniIn .user, .aniIn .lock {
+	animation-delay: 0.6s !important;
+}
+
+.login a {
+	color: #4d4c51;
+	text-align: center;
+	text-decoration: none;
+	font-size: 13px;
+	transition: color 0.1s ease-in-out;
+	opacity: 0;
+	animation: fadeIn 0.4s ease-in-out 0.95s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.login .aniOut a {
+	opacity: 1;
+	animation: fadeOut 0.4s ease-in-out 0s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.login .aniIn a {
+	animation-delay: 0.475s;
+}
+
+.login a:active {
+	color: #015679;
+}
+
+.footer {
+	position: fixed;
+	right: -100px;
+  	bottom: 1em;
+	max-width:100%;
+	left: 100px;
+	text-align: center;
+	color: #FFFFFF;
+	opacity: 0;
+	animation: slideIn 0.8s ease-in-out 0.4s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+input {
+	outline: 0;
+}
+
+.hide {
+	display: none !important;
+}
+
+.forgotPassword h2 {
+	font-family: "Arial", sans-serif;
+	font-size: 18px;
+	color: #464648;
+	text-align: left;
+	padding-left: 7px;
+	margin-bottom: 5px;
+	animation: fadeIn 0.4s ease-in-out 0.7s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+.forgotPassword.aniOut h2 {
+	animation: fadeOut 0.4s ease-in-out 0.0s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	opacity: 1;
+}
+
+.forgotPassword.aniIn h2 {
+	animation-delay: 0.35s;
+}
+
+.form.forgotPassword {
+	width: 80%;
+	max-width: 230px;
+	text-align: center;
+	margin: 0 auto;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Dashboard CSS begint hieronder 
+/////////////////////////////////////////////////	
+////////////////////////////////////////////////
+*/
+
+.square1{
+	z-index: -2	;
+	width: 170%;
+	background-color: #FFFFFF;
+	position: fixed;
+	height: 1000px;
+	top: 195px;
+	
+}
+
+.square2{
+	z-index: -2;
+	width: calc((100% - 200px) / 2);
+	background-color: #FFFFFF;
+	position: absolute;
+	height: 200px;
+	top: 95px;
+	left: 0%;
+	
+}
+
+.square3{
+	z-index: -2;
+	width: calc((100% - 200px) / 2);
+	background-color: #FFFFFF;
+	position: absolute;
+	height: 200px;
+	top: 95px;
+	right:0;
+	
+}
+/*
+.square4{
+	z-index: -2;
+	width: 20%;
+	background-color:aliceblue;
+	position: fixed;
+	height: 20%;
+	top: 16.155%;
+	left: 65%;
+	transform: rotate(46deg); 
+}
+.square5{
+	z-index: -2;
+	width: 20%;
+	background-color:aliceblue;
+	position: fixed;
+	height: 20%;
+	top: 16.155%;
+	left: 15%;
+	transform: rotate(-46deg);
+}
+*/
+.dashbutton{
+	background:url(../img/button2.png);
+	background-size: 70px 70px;
+	z-index: 2;
+	width: 70px;
+    height: 70px;
+	position: absolute;
+	float: left;
+	margin: 0 auto;	
+	left: calc(50% - 0px);
+	top: 111px;
+	transform: translateX(-50%) rotate(45deg);
+	
+}
+
+.dashbutton:active {
+	z-index: 2;
+	background:url(../img/button_click2.png);
+	background-size: 70px 70px;
+	transform: translateX(-50%) rotate(45deg);
+}
+/*
+.dashbutton2{
+	z-index: 2;
+	width: 110px;
+	height: 110px;
+	
+	position:absolute;
+	float: left;
+	margin: 0 auto;
+	left: calc(50% - 1px);
+	top: 70px;
+	transform: translateX(-50%) rotate(45deg);
+}
+
+.dashbutton2:active {
+	background:url(../img/button_click.png) center no-repeat;
+	transform: translateX(-50%) rotate(45deg);
+}
+*/
+.dashmenu{
+	width: 40px;
+	height:auto;
+	margin-top: 0 auto;
+	padding-top: 25px;
+	padding-left: 15px;
+}
+
+.dashvhoek{
+	z-index: -2;
+	margin: 0 auto;
+	width: 200px;
+	left: 50%;
+	top: 95px;
+	position: absolute;
+	transform: translateX(-50%);
+	
+}
+
+.dashlogout{
+	width: 120px;
+	background-color: #015679;
+	color: #FFFFFF;
+	border: 0;
+	margin-top: 120px;
+	height: 37px; 
+	font-size: 16px;
+	}
+/* AppMenu CSS begint hieronder 
+/////////////////////////////////////////////////	
+////////////////////////////////////////////////
+*/
+
+
+
+
+
+
+
+
+
