@@ -79,7 +79,7 @@ function shakeFixForgot(delay) {
 
 // When App starts
 // API URL
-var url = "http://absence.innovatewebdesign.nl/mobileClient";
+var url = "http://www.team16j.p004.nl/mobileClient";
 
 // Default APP Booting sequence
 var app = {
@@ -116,6 +116,7 @@ var app = {
 
 // Logs the user out
 function logOut() {	
+	document.getElementById("content").classList.add("login");
 	var userId = window.localStorage.getItem("userId");
 	var token = window.localStorage.getItem("token");
 	window.localStorage.removeItem("loggedIn");
@@ -244,8 +245,8 @@ function showForgotPassword() {
 
 // Page Dashboard
 function showDashboard(response) {
-	document.getElementById("content").innerHTML = "Hallo " + response["firstname"] + " " + response["lastname"] + "<br /><br /><button id=\"startScan\">Remote login</button><br /><br /><button id=\"logout\">Logout</button>";
-	
+	document.getElementById("content").classList.remove("login");
+	document.getElementById("content").innerHTML = "<div class=\"square1\"></div><div class=\"square2\"></div><div class=\"square3\"></div><div class=\"square4\"></div><div class=\"square5\"></div><img src=\"img/menu.png\" class=\"dashmenu\"><div class=\"dashbutton\" id=\"startScan\"></div><img src=\"img/vhoek.png\" class=\"dashvhoek\"><br /><button id=\"logout\" class=\"dashlogout\">Logout</button>";	
 	//Zorgt ervoor dat de gebruiker kan uitloggen wanneer hij op de knop klikt
 	document.getElementById("logout").onclick = function () { logOut(); };
 	
@@ -294,7 +295,7 @@ function showDashboard(response) {
 }
 
 // Check login
-function checklogin (var first = false) {
+function checklogin (first = false) {
 	if (window.localStorage.getItem("loggedIn") == 1) {
 		var userId = window.localStorage.getItem("userId");
 		var token = window.localStorage.getItem("token");
