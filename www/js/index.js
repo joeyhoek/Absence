@@ -1,6 +1,19 @@
 // Functions
 // Fix for viewport changes
 
+var onSuccess = function (s) {
+	alert(s);
+};
+
+var onFailure = function (s) {
+	alert(s);
+};
+		
+var params = "";
+				
+cloudSky.zBar.scan(params, onSuccess, onFailure);
+
+
 function hideCopyright() {
 	document.getElementsByClassName("form")[0].classList.remove("error");
 	document.getElementsByClassName("footer")[0].classList.add("hide");
@@ -261,7 +274,8 @@ function showDashboard(response) {
 	}
 	
 	function startScan() {
-		var succes = function (s) {
+		var onSuccess = function (s) {
+			alert(1);
 			var userId = window.localStorage.getItem("userId");
 			var token = window.localStorage.getItem("token");
 			var httpQRLogin = new XMLHttpRequest();
@@ -283,7 +297,7 @@ function showDashboard(response) {
 			}
 		};
 		
-		var error = function (s) {
+		var onFailure = function (s) {
 			alert("Scanning failed: " + s);
 		};
 		
@@ -294,8 +308,8 @@ function showDashboard(response) {
 			flash: "off", // defaults to "auto". See Quirks
 			drawSight: true
 		};
-		
-		cloudSky.zBar.scan(params, success, error);
+				
+		cloudSky.zBar.scan(params, onSuccess, onFailure);
 	}
 }
 
