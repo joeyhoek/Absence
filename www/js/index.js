@@ -1,5 +1,6 @@
 // Functions
 // Fix for viewport changes
+
 function hideCopyright() {
 	document.getElementsByClassName("form")[0].classList.remove("error");
 	document.getElementsByClassName("footer")[0].classList.add("hide");
@@ -253,44 +254,48 @@ function showDashboard(response) {
 	window.localStorage.setItem("checkLogin", setInterval(function () { checklogin(); }, 2000));
 	
 	// Scan QR functions
-	var resultDiv;
 	document.addEventListener("deviceready", init, false);
 
 	function init() {
 		document.querySelector("#startScan").addEventListener("touchend", startScan, false);
-		resultDiv = document.querySelector("#results");
 	}
 	
 	function startScan() {
-		cordova.plugins.barcodeScanner.scan(
-			function (result) {
-				if (result.format !== "" && result.format == "QR_CODE") {
-					var userId = window.localStorage.getItem("userId");
-					var token = window.localStorage.getItem("token");
-					var httpQRLogin = new XMLHttpRequest();
-					result = JSON.parse(result.text);
-					if (result.type == "login") {
-						var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientId=" + result.value;
-						httpQRLogin.open("POST", url, true);
-						
-						//Send the proper header information along with the request
-						httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-						httpQRLogin.onreadystatechange = function() {
-							if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
-								if(httpQRLogin.responseText == 1) {
-									alert("You'll be logged in within a matter of seconds.");
-								}
-							}
-						};
-						httpQRLogin.send(paramsQRLogin);
+		var succes = function (s) {
+			var userId = window.localStorage.getItem("userId");
+			var token = window.localStorage.getItem("token");
+			var httpQRLogin = new XMLHttpRequest();
+			var result = JSON.parse(s);
+			if (result.type == "login") {
+				var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientId=" + result.value;
+				httpQRLogin.open("POST", url, true);
+
+				//Send the proper header information along with the request
+				httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				httpQRLogin.onreadystatechange = function() {
+					if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
+						if(httpQRLogin.responseText == 1) {
+							alert("You'll be logged in within a matter of seconds.");
+						}
 					}
-				}
-			},
-			function (error) {
-				alert("Scanning failed: " + error);
+				};
+				httpQRLogin.send(paramsQRLogin);
 			}
-		);
+		};
 		
+		var error = function (s) {
+			alert("Scanning failed: " + s);
+		};
+		
+		var params = {
+			text_title: "Scan een QR-Code", // Android only
+			text_instructions: "Richt op QR-Code", // Android only
+			camera: "back", // defaults to "back"
+			flash: "off", // defaults to "auto". See Quirks
+			drawSight: true
+		};
+		
+		cloudSky.zBar.scan(params, success, error);
 	}
 }
 

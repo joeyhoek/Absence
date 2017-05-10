@@ -167,14 +167,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "phonegap-plugin-barcodescanner": {
-        "source": {
-            "type": "registry",
-            "id": "phonegap-plugin-barcodescanner@~6.0.5"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-uniquedeviceid": {
         "source": {
             "type": "registry",
@@ -187,6 +179,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-translucent-statusbar"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-cszbar": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-cszbar"
         },
         "is_top_level": true,
         "variables": {}

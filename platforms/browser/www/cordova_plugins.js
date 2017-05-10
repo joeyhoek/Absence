@@ -604,20 +604,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
-        "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
-        "pluginId": "phonegap-plugin-barcodescanner",
-        "clobbers": [
-            "cordova.plugins.barcodeScanner"
-        ]
-    },
-    {
-        "file": "plugins/phonegap-plugin-barcodescanner/src/browser/BarcodeScannerProxy.js",
-        "id": "phonegap-plugin-barcodescanner.BarcodeScannerProxy",
-        "pluginId": "phonegap-plugin-barcodescanner",
-        "runs": true
-    },
-    {
         "file": "plugins/cordova-plugin-uniquedeviceid/www/uniqueid.js",
         "id": "cordova-plugin-uniquedeviceid.UniqueDeviceID",
         "pluginId": "cordova-plugin-uniquedeviceid",
@@ -631,6 +617,14 @@ module.exports = [
         "pluginId": "cordova-plugin-translucent-statusbar",
         "clobbers": [
             "window.translucentStatusbar"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-cszbar/www/zbar.js",
+        "id": "cordova-plugin-cszbar.zBar",
+        "pluginId": "cordova-plugin-cszbar",
+        "clobbers": [
+            "cloudSky.zBar"
         ]
     }
 ];
@@ -658,9 +652,9 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.3",
     "cordova-plugin-whitelist": "1.2.2",
-    "phonegap-plugin-barcodescanner": "6.0.5",
     "cordova-plugin-uniquedeviceid": "1.3.2",
-    "cordova-plugin-translucent-statusbar": "1.0.0"
+    "cordova-plugin-translucent-statusbar": "1.0.0",
+    "cordova-plugin-cszbar": "1.3.2"
 }
 // BOTTOM OF METADATA
 });

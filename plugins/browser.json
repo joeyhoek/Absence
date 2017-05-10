@@ -64,13 +64,13 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "nl.innovatewebdesign.absence"
         },
-        "phonegap-plugin-barcodescanner": {
-            "PACKAGE_NAME": "nl.innovatewebdesign.absence"
-        },
         "cordova-plugin-uniquedeviceid": {
             "PACKAGE_NAME": "nl.innovatewebdesign.absence"
         },
         "cordova-plugin-translucent-statusbar": {
+            "PACKAGE_NAME": "nl.innovatewebdesign.absence"
+        },
+        "cordova-plugin-cszbar": {
             "PACKAGE_NAME": "nl.innovatewebdesign.absence"
         }
     },
