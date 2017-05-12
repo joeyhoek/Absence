@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:layout_weight="0.1" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3" >
+
+            <TextView
+                android:id="@+id/topBarGauche"
+                android:layout_width="60dp"
+                android:layout_height="43dp"
+                android:layout_weight="1"
+                android:layout_alignParentLeft="true"
+                android:background="#ffffff" />
+
+            <TextView
+                android:id="@+id/topBar"
+                android:layout_width="60dp"
+                android:layout_height="43dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="Scanner"
+                android:textColor="#000000"
+                android:background="#ffffff"
+                android:textSize="19sp" />
+
+            <ImageButton
+                style="?android:borderlessButtonStyle"
+                android:id="@+id/topBarDroite"
+                android:layout_width="60dp"
+                android:layout_height="43dp"
+                android:layout_weight="1"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/vector_login"
+                android:longClickable="true"
+                android:background="@null" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/csZbarScannerView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/csZbarScannerBackground"
+        android:layout_weight="0.8" >
+
+        <LinearLayout android:id="@+id/scanTopBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2" >
+
+            <ImageButton
+                style="?android:borderlessButtonStyle"
+                android:id="@+id/buttonFlash"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/vector_flash"
+                android:longClickable="true"
+                android:background="#33000000" />
+
+            <ImageButton
+                style="?android:borderlessButtonStyle"
+                android:id="@+id/buttonHelp"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:src="@drawable/vector_help"
+                android:longClickable="true"
+                android:background="#33000000" />
+        </LinearLayout>
+
+        <RelativeLayout android:id="@+id/csZbarScannerSightContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal">
+
+            <View android:id="@+id/csZbarScannerSight"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:background="#ff0000" />
+        </RelativeLayout>
+
+        <LinearLayout android:id="@+id/scanBottomBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/scanBottomText"
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Place a barcode inside the viewfinder to scan it."
+                android:textColor="#ffffff"
+                android:background="#33000000"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3" >
+
+            <ImageButton
+                style="?android:borderlessButtonStyle"
+                android:id="@+id/buttonMap"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/vector_map"
+                android:longClickable="true"
+                android:visibility="visible"
+                android:background="@null" />
+
+            <ImageButton
+                style="?android:borderlessButtonStyle"
+                android:id="@+id/buttonScan"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_centerInParent="true"
+                android:src="@drawable/vector_scan"
+                android:longClickable="true"
+                android:visibility="visible"
+                android:background="@null" />
+
+            <ImageButton
+                style="?android:borderlessButtonStyle"
+                android:id="@+id/buttonSettings"
+                android:layout_width="60dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/vector_settings"
+                android:longClickable="true"
+                android:visibility="visible"
+                android:background="@null"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

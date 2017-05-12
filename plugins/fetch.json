@@ -198,5 +198,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-cszbar-exj": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-cszbar-exj"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

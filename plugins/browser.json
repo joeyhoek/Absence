@@ -75,6 +75,9 @@
         },
         "cordova-plugin-qrscanner": {
             "PACKAGE_NAME": "nl.innovatewebdesign.absence"
+        },
+        "cordova-plugin-cszbar-exj": {
+            "PACKAGE_NAME": "nl.innovatewebdesign.absence"
         }
     },
     "dependent_plugins": {

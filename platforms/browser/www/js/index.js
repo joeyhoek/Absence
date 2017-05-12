@@ -252,6 +252,68 @@ function showDashboard(response) {
 	
 	window.localStorage.setItem("checkLogin", setInterval(function () { checklogin(); }, 2000));
 	
+	// Scan QR functions
+	 var resultDiv;
+	document.addEventListener("deviceready", init, false);
+
+	function init() {
+		document.querySelector("#startScan").addEventListener("touchend", startScan, false);
+		resultDiv = document.querySelector("#results");
+	} 
+	
+				/*if (result.format !== "" && result.format == "QR_CODE") {
+					var userId = window.localStorage.getItem("userId");
+					var token = window.localStorage.getItem("token");
+					var httpQRLogin = new XMLHttpRequest();
+					result = JSON.parse(result.text);
+					if (result.type == "login") {
+						var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientId=" + result.value;
+						httpQRLogin.open("POST", url, true);
+						
+						//Send the proper header information along with the request
+						httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+						httpQRLogin.onreadystatechange = function() {
+							if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
+								if(httpQRLogin.responseText == 1) {
+									alert("You'll be logged in within a matter of seconds.");
+								}
+							}
+						};
+						httpQRLogin.send(paramsQRLogin);
+					}
+				}*/	
+	/*function onDone(err, status){
+		
+	  if (err) {
+	   // here we can handle errors and clean up any loose ends. 
+	   alert(err);
+	  }
+	  if (status.authorized) {
+		  alert(2);
+		window.QRScanner.show();
+	  } else if (status.denied) {
+	   // The video preview will remain black, and scanning is disabled. We can 
+	   // try to ask the user to change their mind, but we'll have to send them 
+	   // to their device settings with `QRScanner.openSettings()`.
+		  alert(1);
+		  window.QRScanner.openSettings();
+	  } else {
+		  alert(3);
+		// we didn't get permission, but we didn't get permanently denied. (On 
+		// Android, a denial isn't permanent unless the user checks the "Don't 
+		// ask again" box.) We can ask again at the next relevant opportunity. 
+	  }
+	}
+	alert(1);
+	
+	window.QRScanner.prepare(onDone); // show the prompt */
+ 
+function startScan() {
+	
+	var hallo = cordova.plugins.cloudSky.zBar.scan("", alert(2), alert(3));
+	alert(hallo);
+}
+	// Make the webview transparent so the video preview is visible behind it. 
 	
 }
 
