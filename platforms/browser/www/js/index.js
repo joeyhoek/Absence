@@ -1,19 +1,5 @@
 // Functions
 // Fix for viewport changes
-
-var onSuccess = function (s) {
-	alert(s);
-};
-
-var onFailure = function (s) {
-	alert(s);
-};
-		
-var params = "";
-				
-cloudSky.zBar.scan(params, onSuccess, onFailure);
-
-
 function hideCopyright() {
 	document.getElementsByClassName("form")[0].classList.remove("error");
 	document.getElementsByClassName("footer")[0].classList.add("hide");
@@ -309,7 +295,7 @@ function showDashboard(response) {
 			drawSight: true
 		};
 				
-		cloudSky.zBar.scan(params, onSuccess, onFailure);
+		window.cloudSky.zBar.scan(params, onSuccess, onFailure);
 	}
 }
 
