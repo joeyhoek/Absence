@@ -640,6 +640,34 @@ module.exports = [
         "clobbers": [
             "cloudSky.zBar"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
+        "id": "cordova-plugin-qrscanner.QRScanner",
+        "pluginId": "cordova-plugin-qrscanner",
+        "clobbers": [
+            "QRScanner"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-qrscanner/src/browser/plugin.min.js",
+        "id": "cordova-plugin-qrscanner.QRScannerProxy",
+        "pluginId": "cordova-plugin-qrscanner",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
+        "id": "cordova-plugin-qrscanner.QRScanner",
+        "pluginId": "cordova-plugin-qrscanner",
+        "clobbers": [
+            "QRScanner"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-qrscanner/src/browser/plugin.min.js",
+        "id": "cordova-plugin-qrscanner.QRScannerProxy",
+        "pluginId": "cordova-plugin-qrscanner",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -669,7 +697,8 @@ module.exports.metadata =
     "phonegap-plugin-barcodescanner": "6.0.5",
     "cordova-plugin-uniquedeviceid": "1.3.2",
     "cordova-plugin-translucent-statusbar": "1.0.0",
-    "cordova-plugin-cszbar": "1.3.2"
+    "cordova-plugin-cszbar": "1.3.2",
+    "cordova-plugin-qrscanner": "2.5.0"
 }
 // BOTTOM OF METADATA
 });
