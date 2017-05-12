@@ -310,10 +310,7 @@ function showDashboard(response) {
  
 function startScan() {
 	
-	var hallo = cordova.plugins.cloudSky.zBar.scan("", alert(2), alert(3));
-	alert(hallo);
-}
-	// Make the webview transparent so the video preview is visible behind it. 
+alert(1);// Make the webview transparent so the video preview is visible behind it. 
 	
 }
 
