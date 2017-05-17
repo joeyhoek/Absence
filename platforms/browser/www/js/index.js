@@ -270,8 +270,9 @@ function showDashboard(response) {
 				var token = window.localStorage.getItem("token");
 				var httpQRLogin = new XMLHttpRequest();
 				result = JSON.parse(result.text);
-				if (result[1] == 1) {
-					var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientId=" + result[2];
+
+				if (result.data[0] == 1) {
+					var paramsQRLogin = "userId=" + userId + "&token=" + token + "&clientId=" + result.data[1];
 					httpQRLogin.open("POST", url, true);
 
 					//Send the proper header information along with the request
@@ -284,7 +285,7 @@ function showDashboard(response) {
 						}
 					};
 					httpQRLogin.send(paramsQRLogin);
-				} else if (result[1] == 2) {
+				} else if (result[0] == 2) {
 					alert("Dit hebben wij nog niet gemaakt");
 				}
 			},
