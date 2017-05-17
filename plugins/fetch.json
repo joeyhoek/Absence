@@ -183,26 +183,10 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-cszbar": {
+    "phonegap-plugin-barcodescanner": {
         "source": {
             "type": "registry",
-            "id": "cordova-plugin-cszbar"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-qrscanner": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-qrscanner@~2.5.0"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
-    "cordova-plugin-cszbar-exj": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-cszbar-exj"
+            "id": "phonegap-plugin-barcodescanner"
         },
         "is_top_level": true,
         "variables": {}

@@ -70,13 +70,7 @@
         "cordova-plugin-translucent-statusbar": {
             "PACKAGE_NAME": "nl.innovatewebdesign.absence"
         },
-        "cordova-plugin-cszbar": {
-            "PACKAGE_NAME": "nl.innovatewebdesign.absence"
-        },
-        "cordova-plugin-qrscanner": {
-            "PACKAGE_NAME": "nl.innovatewebdesign.absence"
-        },
-        "cordova-plugin-cszbar-exj": {
+        "phonegap-plugin-barcodescanner": {
             "PACKAGE_NAME": "nl.innovatewebdesign.absence"
         }
     },

@@ -6,8 +6,8 @@
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
-    <feature name="QRScanner">
-        <param name="browser-package" value="QRScanner" />
+    <feature name="BarcodeScanner">
+        <param name="browser-package" value="BarcodeScanner" />
     </feature>
     <name>Absence</name>
     <description>
