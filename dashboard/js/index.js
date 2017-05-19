@@ -295,10 +295,10 @@ function showForgotPassword() {
 
 // Page Dashboard
 function showDashboard(response) {
-	document.getElementById("content").innerHTML = "<div class=\"square1\"></div><div class=\"square2\"></div><div class=\"square3\"></div><div class=\"square4\"></div><div class=\"square5\"></div><img src=\"img/menu.png\" class=\"dashmenu\"><div class=\"dashbutton\"></div><img src=\"img/vhoek.png\" class=\"dashvhoek\"><br /><button id=\"logout\" class=\"dashlogout\">Logout</button>";
+	document.getElementById("content").innerHTML = "<header class=\"cd-header\"><a class=\"cd-primary-nav-trigger\" href=\"#0\"><span class=\"cd-menu-icon\"></span></a></header><nav><ul class=\"cd-primary-nav\"><li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-tachometer\" aria-hidden=\"true\"></i><figcaption>Dashboard</figcaption></a></li><li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-bar-chart\" aria-hidden=\"true\"></i><figcaption>Overview</figcaption></a></li><li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i><figcaption>Manage</figcaption></a></li><div class=\"profile\"><li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><figcaption><?php echo (new User($_SESSION[\"userId\"]))->getFirstname() . \" \" . (new User($_SESSION[\"userId\"]))->getLastname(); ?></figcaption></a></li><a href=\"/?action=logout\"><img class=\"imgs logout\" src=\"img/logout.png\"></a></div><a href=\"#\"><img class=\"questionMark\" src=\"img/questionMark.png\"></a></ul></nav><div class=\"square1\"></div><div class=\"square2\"></div><div class=\"square3\"></div><div class=\"square4\"></div><div class=\"square5\"></div><div class=\"dashbutton\"></div><img src=\"img/vhoek.png\" class=\"dashvhoek\"><br /><button id=\"logout\" class=\"dashlogout\">Logout</button>";
 	
 	//Zorgt ervoor dat de gebruiker kan uitloggen wanneer hij op de knop klikt
-	document.getElementById("logout").onclick = function () {logOut();};
+	document.getElementById("logout").onclick = function () {logOut();};	
 	
 	// Scan QR functions
 	var resultDiv;
@@ -383,4 +383,3 @@ if (window.localStorage.getItem("loggedIn") == 1) {
 } else {
 	showDashboard(response);
 }
-
