@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-
+/*jshint strict:false */
 // Functions
 // Fix for viewport changes
 function hideCopyright() {
@@ -81,7 +81,7 @@ function shakeFixForgot(delay) {
 
 // When App starts
 // API URL
-var url = "http://www.team16j.p004.nl/mobileClient";
+var url = "http://absence.innovatewebdesign.nl/mobileClient";
 
 // Default APP Booting sequence
 var app = {
@@ -131,7 +131,7 @@ function logOut() {
 	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	http.onreadystatechange = function() {
-		if(http.readyState == 4 && http.status == 200) {
+		if(http.readyState === 4 && http.status === 200) {
 			http.abort();
 			http = null;
 			
@@ -160,7 +160,7 @@ function login() {
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 		http.onreadystatechange = function() {
-			if(http.readyState == 4 && http.status == 200) {
+			if(http.readyState === 4 && http.status === 200) {
 				var textContent = http.responseText;
 				http.abort();
 				http = null;
@@ -248,11 +248,34 @@ function showForgotPassword() {
 // Page Dashboard
 function showDashboard(response) {
 	document.getElementById("content").classList.remove("login");
-	document.getElementById("content").innerHTML = "<div class=\"square1\"></div><div class=\"square2\"></div><div class=\"square3\"></div><div class=\"square4\"></div><div class=\"square5\"></div><img src=\"img/menu.png\" class=\"dashmenu\"><div class=\"dashbutton\" id=\"startScan\"></div><img src=\"img/vhoek.png\" class=\"dashvhoek\"><br /><button id=\"logout\" class=\"dashlogout\">Logout</button>";	
+	document.getElementById("content").innerHTML = "<header class=\"cd-header\"><a class=\"cd-primary-nav-trigger\" href='#'><span class=\"cd-menu-icon\"></span></a></header><nav><ul class=\"cd-primary-nav\"><div class='menuCenter'><li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-tachometer\" aria-hidden=\"true\"></i><figcaption>Dashboard</figcaption></a></li><div class=\"profile\"><li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i><figcaption>" + response.firstname + " " + response.lastname + "</figcaption></a></li><a id='logout'><img class=\"imgs logout\" src=\"img/logout.png\"></a></div></div></ul></nav><div class=\"square1\"></div><div class=\"square2\"></div><div class=\"square3\"></div><div class=\"square4\"></div><div class=\"square5\"></div><div class=\"dashbutton\" id=\"startScan\"></div><img src=\"img/vhoek.png\" class=\"dashvhoek\">";	
+	
+	// <li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-bar-chart\" aria-hidden=\"true\"></i><figcaption>Overview</figcaption></a></li><li class=\"cd-label\"><a href=\"#\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i><figcaption>Manage</figcaption></a></li><a href=\"#\"><img class=\"questionMark\" src=\"img/questionMark.png\"></a>
+	
 	//Zorgt ervoor dat de gebruiker kan uitloggen wanneer hij op de knop klikt
-	document.getElementById("logout").onclick = function () { logOut(); };
+	document.getElementById("logout").onclick = function () { 
+		clearInterval(window.localStorage.getItem("checkLogin"));
+		logOut(); 
+	};
 	
 	window.localStorage.setItem("checkLogin", setInterval(function () { checklogin(); }, 2000));
+	
+	//open/close primary navigation
+	document.getElementsByClassName("cd-primary-nav-trigger")[0].addEventListener('click', function(){
+		document.getElementsByClassName("cd-menu-icon")[0].classList.toggle('is-clicked'); 
+		document.getElementsByClassName("cd-header")[0].classList.toggle('menu-is-open');
+		
+		//in firefox transitions break when parent overflow is changed, so we need to wait for the end of the trasition to give the body an overflow hidden
+		if(document.getElementsByClassName("cd-primary-nav")[0].classList.contains('is-visible') ) {
+			$('.cd-primary-nav').removeClass('is-visible').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+				$('body').removeClass('overflow-hidden');
+			});
+		} else {
+			$('.cd-primary-nav').addClass('is-visible').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
+				$('body').addClass('overflow-hidden');
+			});	
+		}
+	}, false);
 	
 	// Scan QR functions
 	 var resultDiv;
@@ -280,13 +303,25 @@ function showDashboard(response) {
 					httpQRLogin.onreadystatechange = function() {
 						if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
 							if(httpQRLogin.responseText == 1) {
-								alert("You'll be logged in within a matter of seconds.");
+								
 							}
 						}
 					};
 					httpQRLogin.send(paramsQRLogin);
-				} else if (result[0] == 2) {
-					alert("Dit hebben wij nog niet gemaakt");
+				} else if (result.data[0] == 2) {
+					var paramsQRLogin = "userId=" + userId + "&token=" + token + "&lessonToken=" + result.data[1];
+					httpQRLogin.open("POST", url, true);
+
+					//Send the proper header information along with the request
+					httpQRLogin.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					httpQRLogin.onreadystatechange = function() {
+						if(httpQRLogin.readyState == 4 && httpQRLogin.status == 200) {
+							if(httpQRLogin.responseText == 1 ) {
+
+							}
+						}
+					};
+					httpQRLogin.send(paramsQRLogin);
 				}
 			},
 			function (error) {
@@ -330,18 +365,18 @@ function checklogin (first = false) {
 				if (response !== false && first !== false) {
 					showDashboard(response);
 				} else if (response == false) {
-					logOut();
 					clearInterval(window.localStorage.getItem("checkLogin"));
+					logOut();
 				}
 			} else if (http.readyState == 4) {
-				logOut();
 				clearInterval(window.localStorage.getItem("checkLogin"));
+				logOut();
 			}
 		};
 		http.send(params);
 	} else {
-		logOut();
 		clearInterval(window.localStorage.getItem("checkLogin"));
+		logOut();
 	}
 }
 

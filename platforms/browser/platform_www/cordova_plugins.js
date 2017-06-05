@@ -620,36 +620,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-cszbar/www/zbar.js",
-        "id": "cordova-plugin-cszbar.zBar",
-        "pluginId": "cordova-plugin-cszbar",
-        "clobbers": [
-            "cloudSky.zBar"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
-        "id": "cordova-plugin-qrscanner.QRScanner",
-        "pluginId": "cordova-plugin-qrscanner",
-        "clobbers": [
-            "QRScanner"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-qrscanner/src/browser/plugin.min.js",
-        "id": "cordova-plugin-qrscanner.QRScannerProxy",
-        "pluginId": "cordova-plugin-qrscanner",
-        "runs": true
-    },
-    {
-        "file": "plugins/cordova-plugin-cszbar-exj/www/zbar.js",
-        "id": "cordova-plugin-cszbar-exj.zBar",
-        "pluginId": "cordova-plugin-cszbar-exj",
-        "clobbers": [
-            "cloudSky.zBar"
-        ]
-    },
-    {
         "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
         "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
         "pluginId": "phonegap-plugin-barcodescanner",

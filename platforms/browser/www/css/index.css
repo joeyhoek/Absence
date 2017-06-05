@@ -33,6 +33,10 @@
 	user-drag: none;
 }
 
+a {
+	text-decoration: none;
+}
+
 .login * {
 	-webkit-backface-visibility: hidden;
 	-moz-backface-visibility: hidden;
@@ -477,7 +481,7 @@ h1 {
 }
 
 
-.login a:active {
+.login a {
 	color: #015679;
 }
 
@@ -534,13 +538,19 @@ input {
 	transform: translate(-50%, -50%);
 }
 
+/*
+//////////////////////////////////////////////////////////////////////////////
+Hieronder begint de CSS van het dashboard
+//////////////////////////////////////////////////////////////////////////////
+*/
+
 .square1 {
 	z-index: -2	;
 	width: 170%;
 	background-color: #FFFFFF;
 	position: fixed;
 	height: 1000px;
-	top: 195px;
+	top: 181px;
 }
 
 .square2 {
@@ -548,8 +558,8 @@ input {
 	width: calc((100% - 200px) / 2);
 	background-color: #FFFFFF;
 	position: absolute;
-	height: 200px;
-	top: 95px;
+    height: 100px;
+    top: 83px;
 	left: 0%;
 }
 
@@ -558,27 +568,27 @@ input {
 	width: calc((100% - 200px) / 2);
 	background-color: #FFFFFF;
 	position: absolute;
-	height: 200px;
-	top: 95px;
+	height: 100px;
+    top: 83px;
 	right:0;
 }
 
 .dashbutton {
 	background: url("../img/button2.png");
 	background-size: 70px 70px;
-	z-index: 2;
 	width: 70px;
     height: 70px;
 	position: absolute;
 	float: left;
 	margin: 0 auto;	
 	left: 50%;
-	top: 111px;
+	top: 98px;
+	z-index: -1;
 	transform: translateX(-50%) rotate(45deg);
 }
 
 .dashbutton:active {
-	z-index: 2;
+	z-index: -1;
 	background: url("../img/button_click2.png");
 	background-size: 70px 70px;
 	transform: translateX(-50%) rotate(45deg);
@@ -597,17 +607,380 @@ input {
 	margin: 0 auto;
 	width: 200px;
 	left: 50%;
-	top: 95px;
+	top: 82px;
 	position: absolute;
 	transform: translateX(-50%);
 }
 
-.dashlogout {
-	width: 120px;
-	background-color: #015679;
-	color: #FFFFFF;
-	border: 0;
-	margin-top: 120px;
-	height: 37px; 
-	font-size: 16px;
+/* 
+////////////////////////////////////////////////////////////////////////////////////
+Hieronder begint de CSS van het Nav menu ding
+////////////////////////////////////////////////////////////////////////////////////
+*/
+
+
+
+.cd-primary-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transform: translateY(-100%);
+  transition-property: transform;
+  transition-duration: 0.4s;
+}
+ 
+.cd-primary-nav.is-visible {
+  transform: translateY(0);
+}
+
+.cd-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80px;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+ 
+.cd-header.is-fixed {
+  /* when the user scrolls down, we hide the header right above the viewport */
+  position: fixed;
+  top: -80px;
+  transition: transform 0.3s;
+}
+ 
+.cd-header.is-visible {
+  /* if the user changes the scrolling direction, we show the header */
+  transform: translate3d(0, 100%, 0);
+}
+
+
+.cd-container {
+  /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
+  width: 90%;
+  max-width: 768px;
+  margin: 0 auto;
+}
+.cd-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.cd-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  z-index: 5;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@media only screen and (min-width: 768px) {
+	.cd-header {
+		height: 80px;
+	}
+}
+
+@media only screen and (min-width: 1170px) {
+  .cd-header {
+    
+    /* Force Hardware Acceleration in WebKit */
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  .cd-header.is-fixed {
+    /* when the user scrolls down, we hide the header right above the viewport */
+    position: fixed;
+    top: -80px;
+  }
+  .cd-header.is-visible {
+    /* if the user changes the scrolling direction, we show the header */
+    -webkit-transform: translate3d(0, 100%, 0);
+    -moz-transform: translate3d(0, 100%, 0);
+    -ms-transform: translate3d(0, 100%, 0);
+    -o-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+  }
+  
+}
+
+.cd-primary-nav-trigger {
+  position: absolute;
+  left: 2%;
+  top: 15px;
+  height: 100%;
+  width: 42px;
+  padding-right: 20px;
+}
+
+.cd-primary-nav-trigger .cd-menu-icon {
+  /* this span is the central line of the menu icon */
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  bottom: auto;
+  right: auto;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  width: 42px;
+  height: 6px;
+  background-color: white;
+  /* these are the upper and lower lines in the menu icon */
+}
+.cd-primary-nav-trigger .cd-menu-icon::before, .cd-primary-nav-trigger .cd-menu-icon:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: white;
+  right: 0;
+/* Animation speed for the menu icon: */
+  -webkit-transition: -webkit-transform .3s, top .3s;
+  -moz-transition: -moz-transform .3s;
+  transition: transform .3s, top .3s;
+}
+.cd-primary-nav-trigger .cd-menu-icon::before {
+  top: -11px;
+}
+.cd-primary-nav-trigger .cd-menu-icon::after {
+  top: 11px;
+}
+.cd-primary-nav-trigger .cd-menu-icon.is-clicked {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+/* Getting the cross - 1st line */
+.cd-primary-nav-trigger .cd-menu-icon.is-clicked::before {
+  top: 0;
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+/* Getting the cross - 2nd line */
+.cd-primary-nav-trigger .cd-menu-icon.is-clicked::after {
+  top: 0;
+  -webkit-transform: rotate(225deg);
+  -moz-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  -o-transform: rotate(225deg);
+  transform: rotate(225deg);
+}
+@media only screen and (min-width: 768px) {
+  .cd-primary-nav-trigger {
+    width: 40px;
+    height: 30px;
+    line-height: 30px;
+    right: 2.2em;
+    top: 50%;
+    bottom: auto;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+  .cd-primary-nav-trigger .cd-menu-text {
+    display: inline-block;
+  }
+  .cd-primary-nav-trigger .cd-menu-icon {
+    left: auto;
+    
+    -webkit-transform: translateX(0) translateY(-50%);
+    -moz-transform: translateX(0) translateY(-50%);
+    -ms-transform: translateX(0) translateY(-50%);
+    -o-transform: translateX(0) translateY(-50%);
+    transform: translateX(0) translateY(-50%);
+  }
+}
+
+.cd-primary-nav {
+  /* by default it's hidden - on top of the viewport */
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 4;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: auto;
+  /* this fixes the buggy scrolling on webkit browsers - mobile devices only - when overflow property is applied */
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  -o-transform: translateY(-100%);
+  transform: translateY(-100%);
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+
+ background-color: rgba(46, 46, 46, 0.5);
+  background-size: cover;
+	
+}
+.cd-primary-nav li {
+  font-size: 22px;
+  font-size: 1.375rem;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: .2em 0;
+  text-transform: capitalize;
+}
+.cd-primary-nav a {
+  display: inline-block;
+  
+  border-radius: 0.25em;
+  -webkit-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  transition: background 0.2s;
+}
+
+@media only screen and (min-width: 400px) {
+	.cd-primary-nav .cd-label {
+	  margin: 2.5em 0 0em !important;
+	}
+}
+
+.cd-primary-nav .cd-label {
+  font-size: 14px;
+  font-size: 0.875rem;
+  margin: 1.5em 0 0em;
+}
+.cd-primary-nav .cd-social {
+  display: inline-block;
+  margin: 0 .4em;
+}
+.cd-primary-nav .cd-social a {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background-repeat: no-repeat;
+  /* image replacement */
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+.cd-primary-nav.is-visible {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+@media only screen and (min-width: 1170px) {
+  .cd-primary-nav li {
+    font-size: 30px;
+    font-size: 1.875rem;
+  }
+  .cd-primary-nav .cd-label {
+    font-size: 16px;
+    font-size: 1rem;
+  }
+}
+
+figcaption {
+	margin-top: 10px !important;
+	font-size: 15px !important;
+	color: white;
+	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+	text-transform: none;
+}
+
+.imgs {
+	width: 70px;
+	height: auto;
+}
+	
+.logout {
+	width: 25px;
+	height: auto;
+	position: relative;
+	bottom: 47px;
+	left: 32px;
+}
+
+.profile {
+	position: relative;
+}
+
+.questionMark {
+	position: absolute;
+	left: 5px;
+	bottom: 5px;
+}
+
+@media only screen and (min-width: 700px) {
+	.imgs {
+		width: 100px;
+		height: auto;
+	}	
+	.logout {
+		width: 30px;
+		height: auto;
+		bottom: 55px;
+		left: 37px;
+	}
+	.profilePicture {
+	height: 100px;
+	width: 95px;
+	}
+}
+
+.fa {
+	color: white;
+	font-family: FontAwesome !important;
+	font-size: 92px !important;
+}
+
+.login a {
+	color: #4d4c51;
+	text-align: center;
+	text-decoration: none;
+	font-size: 13px;
+	transition: color 0.1s ease-in-out;
+	opacity: 0;
+	animation: fadeIn 0.4s ease-in-out 0.95s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+}
+
+.cd-header {
+	z-index: -1;
+}
+
+.overflow-hidden .cd-header, .cd-header.menu-is-open {
+	z-index: 5;
+}
+
+.menuCenter {
+	top: 50%;
+    position: sticky;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
