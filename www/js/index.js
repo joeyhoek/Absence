@@ -81,7 +81,7 @@ function shakeFixForgot(delay) {
 
 // When App starts
 // API URL
-var url = "http://absence.innovatewebdesign.nl/mobileClient";
+var url = "http://www.team16j.p004.nl/mobileClient";
 
 // Default APP Booting sequence
 var app = {
